@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Themed Page</title>
+</head>
+<body>
+    <header>
+        <h1>NHL Data</h1>
+    </header>
+
+  <table>
+    <tr>
+      <th>Team</th>
+      <th>Games Count</th>
+      <th>Wins</th>
+      <th>Losses</th>
+      <th>Yet to be Played</th>
+      <th>Total Goals</th>
+    </tr>
+    <tr *ngFor="let game of (nhlData$ | async)?.nhldata">
+      <td>{{ game.team }}</td>
+      <td>{{ game.games_count }}</td>
+      <td>{{ game.wins }}</td>
+      <td>{{ game.losses }}</td>
+      <td>{{ game.yet_to_play }}</td>
+      <td>{{ game.total_goals }}</td>
+    </tr>
+  </table>
+</body>

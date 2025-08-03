@@ -1,0 +1,10 @@
+
+
+{
+  "nhl_data": [
+    { "id": 1, "home_team": "Product 1", "home_score": 3 },
+    { "id": 2, "home_team": "Product 2", "home_score": 4 },
+    { "id": 3, "home_team": "Product 3", "home_score": 0 }
+  ]
+}
+

@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    background-color: #121212; /* Dark background */
+    color: #eee; /* Light text */
+    padding: 20px;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    color: #fff; /* Brighter for headings */
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Paragraphs */
+p {
+    margin-bottom: 15px;
+    color: #ccc; /* Softer text for paragraphs */
+}
+
+/* Links */
+a {
+    color: #1e90ff; /* Bright blue */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+a:hover {
+    color: #63a4ff; /* Slightly lighter blue on hover */
+}
+
+/* Buttons */
+button, .button {
+    background-color: #333; /* Dark gray button */
+    color: #fff;
+    padding: 10px 20px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+button:hover, .button:hover {
+    background-color: #444; /* Slightly lighter */
+    border-color: #555;
+}
+
+/* Forms */
+input, textarea, select {
+    background-color: #222; /* Dark input background */
+    color: #ddd; /* Light text */
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #1e90ff;
+    box-shadow: 0 0 5px #1e90ff;
+}
+
+/* Layout and Containers */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1e1e1e; /* Slightly lighter for containers */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+}
+
+/* Header */
+header {
+    background: linear-gradient(90deg, #333, #444);
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #555;
+}
+header h1 {
+    font-size: 2.5rem;
+    color: #fff;
+}
+
+/* Footer */
+footer {
+    background: #222;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    color: #888;
+    border-top: 1px solid #444;
+}
+footer a {
+    color: #1e90ff;
+}
+
+/* Lists */
+ul, ol {
+    margin: 15px 0;
+    padding-left: 20px;
+}
+li {
+    margin-bottom: 10px;
+}
+
+/* Code Blocks */
+code, pre {
+    background-color: #1e1e1e;
+    color: #1e90ff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    display: inline-block;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+    header h1 {
+        font-size: 2rem;
+    }
+    .container {
+        padding: 10px;
+    }
+}
