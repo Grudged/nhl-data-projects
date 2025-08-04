@@ -6,7 +6,16 @@ from psycopg2.extras import RealDictCursor
 import os
 from dotenv import load_dotenv
 
-load_dotenv(dotenv_path='../.env')
+load_dotenv(dotenv_path='../.env')  # Load local .env in development
+
+# Use production environment variables if available, fallback to dev
+DB_HOST = os.environ.get('DB_HOST_PROD', os.environ.get('DB_HOST', 'localhost'))
+DB_NAME = os.environ.get('DB_NAME_PROD', os.environ.get('DB_NAME', 'devdb'))
+DB_USER = os.environ.get('DB_USER_PROD', os.environ.get('DB_USER', 'devuser'))
+DB_PASSWORD = os.environ.get('DB_PASSWORD_PROD', os.environ.get('DB_PASSWORD', 'devpass'))
+DB_PORT = os.environ.get('DB_PORT_PROD', os.environ.get('DB_PORT', '5432'))
+
+SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -14,11 +23,11 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 # Database connection function
 def get_db_connection():
     conn = psycopg2.connect(
-        host=os.environ['DB_HOST'],
-        database=os.environ['DB_NAME'],
-        user=os.environ['DB_USER'],
-        password=os.environ['DB_PASSWORD'],
-        port=os.environ['DB_PORT']
+        host=DB_HOST,
+        database=DB_NAME,
+        user=DB_USER,
+        password=DB_PASSWORD,
+        port=DB_PORT
     )
     return conn
 
@@ -111,4 +120,6 @@ def test():
     return jsonify({'message': 'Flask app is working!'})
 
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1', port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    debug = os.environ.get('FLASK_ENV') != 'production'
+    app.run(debug=debug, host='0.0.0.0', port=port)
