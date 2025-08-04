@@ -114,6 +114,11 @@ def nhldata():
     print(f"Returning data for {len(nhldata_list)} teams")
     return jsonify({'nhldata': nhldata_list})
 
+# Health check at root
+@app.route('/')
+def health():
+    return jsonify({'status': 'OK', 'app': 'NHL Data API'})
+
 # Simple test endpoint
 @app.route('/api/test')
 def test():
