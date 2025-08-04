@@ -1,6 +1,9 @@
 [build]
   publish = "dist/nhl-data/browser"
   command = "npm install && ng build"
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF . ':(exclude)requirements.txt' ':(exclude)app.py' ':(exclude)Procfile'"
 
 [build.environment]
   NODE_VERSION = "20"
+  NETLIFY_SKIP_PYTHON = "true"
+  DISABLE_PYTHON = "1"
