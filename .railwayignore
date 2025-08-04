@@ -9,3 +9,4 @@ src/main.ts
 src/styles.css
 src/assets/
 public/
+*.db
