@@ -13,3 +13,5 @@ public/
 src/app/*.ts
 src/app/*.html
 src/app/*.css
+netlify.toml
+.netlifyignore
