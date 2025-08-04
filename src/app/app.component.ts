@@ -23,7 +23,7 @@ interface NHLDataResponse {
 })
 export class AppComponent implements OnInit {
   nhlData$!: Observable<NHLDataResponse>;
-  private baseApiUrl = 'https://nhl-data-projects-production.up.railway.app';
+  private baseApiUrl = 'https://nhl-data-projects-production.up.railway.app/api/nhldata';
   
   searchTerm: string = '';
   sortBy: string = 'total_goals';
