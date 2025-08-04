@@ -2,25 +2,39 @@
 
 A full-stack application that fetches NHL game data from an external API, stores it in a PostgreSQL database, and displays team statistics through an Angular frontend.
 
+## 🚀 Live Application
+
+- **Frontend**: [Netlify Deployment URL]
+- **Backend API**: `https://nhl-data-projects-production.up.railway.app`
+- **API Test**: `https://nhl-data-projects-production.up.railway.app/api/test`
+
 ## Architecture
 
-- **Frontend**: Angular application displaying NHL team statistics
+- **Frontend**: Angular 19 application displaying NHL team statistics
 - **Backend**: Flask API serving aggregated team data
 - **Database**: PostgreSQL (Neon Database) storing NHL game data
 - **Data Source**: NHL API via RapidAPI
+- **Deployment**: Railway (backend) + Netlify (frontend)
 
-## Project Structure
+## Project Structure & Branch Strategy
 
 ```
 nhl-data-projects/
-├── src/
-│   ├── app/           # Angular frontend
-│   ├── app.py         # Flask API
-│   ├── nhl_data.py    # Data fetching/population script
-│   └── .env           # Environment variables
-├── requirements.txt   # Python dependencies
-├── Procfile          # Railway deployment config
-└── railway.json      # Railway settings
+├── main branch (Railway deployment)
+│   ├── src/
+│   │   ├── app/           # Angular frontend
+│   │   ├── app.py         # Flask API
+│   │   ├── nhl_data.py    # Data fetching script
+│   │   └── .env           # Environment variables
+│   ├── requirements.txt   # Python dependencies
+│   ├── Procfile          # Railway deployment config
+│   └── railway.json      # Railway settings
+│
+└── netlify-deploy branch (Netlify deployment)
+    ├── src/app/           # Angular frontend only
+    ├── package.json       # Node.js dependencies
+    ├── angular.json       # Angular configuration
+    └── netlify.toml       # Netlify build settings
 ```
 
 ## Development Setup
@@ -117,15 +131,36 @@ Navigate to `http://localhost:4200/`
 
 ## Production Deployment
 
-### Backend (Railway)
-1. Deploy Flask API to Railway
-2. Set production environment variables
-3. Database automatically connects to Neon
+This project uses a **dual-branch deployment strategy** to handle the monorepo structure:
 
-### Frontend (Netlify)
-1. Build Angular app: `ng build`
-2. Deploy `dist/` folder to Netlify
-3. Update API endpoints to point to Railway URL
+### Backend Deployment (Railway)
+**Branch**: `main`
+1. **Connect Railway** to the `main` branch
+2. **Environment Variables** (set in Railway dashboard):
+   ```
+   DB_HOST_PROD=your-neon-host
+   DB_NAME_PROD=neondb
+   DB_USER_PROD=neondb_owner
+   DB_PASSWORD_PROD=your-password
+   DB_PORT_PROD=5432
+   FLASK_ENV=production
+   ```
+3. **Automatic deployment** via `Procfile`: `gunicorn -w 4 -b 0.0.0.0:$PORT app:app`
+4. **Database**: Automatically connects to Neon Database
+
+### Frontend Deployment (Netlify)
+**Branch**: `netlify-deploy` (Python-free branch)
+1. **Connect Netlify** to the `netlify-deploy` branch
+2. **Build Settings**:
+   - Build command: `npm install && ng build`
+   - Publish directory: `dist/nhl-data/browser`
+   - Node.js version: 20
+3. **Auto-deployment** from clean Angular-only branch
+
+### Branch Management
+- **`main`**: Full-stack development, Railway deployment
+- **`netlify-deploy`**: Frontend-only, Netlify deployment
+- **Sync changes**: Merge main → netlify-deploy when updating frontend
 
 ## API Endpoints
 
@@ -135,8 +170,24 @@ Navigate to `http://localhost:4200/`
 
 ## Features
 
-- Real-time NHL game data fetching
-- Team statistics aggregation (wins, losses, goals)
-- Responsive Angular frontend
-- PostgreSQL data persistence
-- Production-ready deployment configuration
+- **Real-time NHL data**: Fetches live game data from NHL API via RapidAPI
+- **Team statistics**: Aggregated wins, losses, goals, and games played
+- **Responsive frontend**: Angular 19 with modern UI components
+- **PostgreSQL persistence**: Reliable data storage with Neon Database
+- **Production deployment**: Dual-platform deployment (Railway + Netlify)
+- **Monorepo architecture**: Single repository with branch-based deployments
+
+## Technology Stack
+
+- **Frontend**: Angular 19, TypeScript, CSS
+- **Backend**: Python Flask, psycopg2, gunicorn
+- **Database**: PostgreSQL (Neon Database)
+- **Deployment**: Railway (backend), Netlify (frontend)
+- **External API**: NHL API via RapidAPI
+- **Environment**: Node.js 20+, Python 3.11+
+
+## Deployment URLs
+
+- **Backend API**: `https://nhl-data-projects-production.up.railway.app`
+- **Frontend**: [Update with Netlify URL after successful deployment]
+- **Repository**: `https://github.com/Grudged/nhl-data-projects`
