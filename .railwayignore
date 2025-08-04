@@ -10,3 +10,6 @@ src/styles.css
 src/assets/
 public/
 *.db
+src/app/*.ts
+src/app/*.html
+src/app/*.css
