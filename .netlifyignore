@@ -1,4 +1,5 @@
 requirements.txt
+requirements.txt.railway
 Procfile
 railway.json
 app.py
