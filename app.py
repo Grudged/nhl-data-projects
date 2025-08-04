@@ -5,8 +5,13 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 import os
 from dotenv import load_dotenv
+import sys
 
-load_dotenv(dotenv_path='src/.env')  # Load local .env in development
+# Try to load .env file, but don't fail if it doesn't exist
+try:
+    load_dotenv(dotenv_path='src/.env')  # Load local .env in development
+except:
+    pass
 
 # Use production environment variables if available, fallback to dev
 DB_HOST = os.environ.get('DB_HOST_PROD', os.environ.get('DB_HOST', 'localhost'))
