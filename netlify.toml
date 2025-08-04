@@ -1,0 +1,24 @@
+[build]
+  publish = "dist/"
+  command = "npm install && ng build"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[ignore]]
+  path = "requirements.txt"
+
+[[ignore]]  
+  path = "Procfile"
+
+[[ignore]]
+  path = "railway.json"
+
+[[ignore]]
+  path = "app.py"
+
+[[ignore]]
+  path = "src/nhl_data.py"
+
+[[ignore]]
+  path = "src/.env"
