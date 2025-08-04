@@ -4,6 +4,9 @@ from datetime import datetime
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import os
+from dotenv import load_dotenv
+
+load_dotenv(dotenv_path='../.env')
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -11,11 +14,11 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 # Database connection function
 def get_db_connection():
     conn = psycopg2.connect(
-        host=os.getenv('DB_HOST', 'localhost'),
-        database=os.getenv('DB_NAME', 'devdb'),
-        user=os.getenv('DB_USER', 'devuser'),
-        password=os.getenv('DB_PASSWORD', 'devpass'),
-        port=os.getenv('DB_PORT', '5432')
+        host=os.environ['DB_HOST'],
+        database=os.environ['DB_NAME'],
+        user=os.environ['DB_USER'],
+        password=os.environ['DB_PASSWORD'],
+        port=os.environ['DB_PORT']
     )
     return conn
 
