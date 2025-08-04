@@ -1,31 +1,120 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Themed Page</title>
-</head>
-<body>
-    <header>
-        <h1>NHL Data</h1>
-    </header>
+<div class="app-container">
+  <header class="app-header">
+    <h1 class="app-title">🏒 NHL Team Statistics</h1>
+    <p class="app-subtitle">Regular Season Performance Dashboard</p>
+  </header>
 
-  <table>
-    <tr>
-      <th>Team</th>
-      <th>Games Count</th>
-      <th>Wins</th>
-      <th>Losses</th>
-      <th>Yet to be Played</th>
-      <th>Total Goals</th>
-    </tr>
-    <tr *ngFor="let game of (nhlData$ | async)?.nhldata">
-      <td>{{ game.team }}</td>
-      <td>{{ game.games_count }}</td>
-      <td>{{ game.wins }}</td>
-      <td>{{ game.losses }}</td>
-      <td>{{ game.yet_to_play }}</td>
-      <td>{{ game.total_goals }}</td>
-    </tr>
-  </table>
-</body>
+  <div class="controls-section">
+    <div class="season-type-container">
+      <label>Season:</label>
+      <div class="season-switcher">
+        <button 
+          *ngFor="let type of seasonTypes" 
+          (click)="setSeasonType(type.value)"
+          [class.active]="selectedSeasonType === type.value"
+          class="season-btn"
+        >
+          {{ type.icon }} {{ type.label }}
+        </button>
+      </div>
+    </div>
+
+    <div class="search-container">
+      <input 
+        type="text" 
+        placeholder="Search teams..." 
+        [(ngModel)]="searchTerm"
+        class="search-input"
+      />
+    </div>
+    
+    <div class="sort-container">
+      <label>Sort by:</label>
+      <select [(ngModel)]="sortBy" (change)="onSortChange()" class="sort-select">
+        <option value="team">Team Name</option>
+        <option value="wins">Wins</option>
+        <option value="losses">Losses</option>
+        <option value="total_goals">Total Goals</option>
+        <option value="games_count">Games Played</option>
+      </select>
+      <button (click)="toggleSortDirection()" class="sort-btn" [class.desc]="sortDirection === 'desc'">
+        {{ sortDirection === 'asc' ? '↑' : '↓' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="stats-overview" *ngIf="(nhlData$ | async)?.nhldata as data">
+    <div class="stat-card">
+      <div class="stat-number">{{ data.length }}</div>
+      <div class="stat-label">Teams</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">{{ getTotalGames(data) }}</div>
+      <div class="stat-label">Total Games</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">{{ getTotalGoals(data) }}</div>
+      <div class="stat-label">Total Goals</div>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="nhl-table">
+      <thead>
+        <tr>
+          <th (click)="sort('team')" [class.active]="sortBy === 'team'">
+            Team
+            <span class="sort-indicator" *ngIf="sortBy === 'team'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
+          </th>
+          <th (click)="sort('games_count')" [class.active]="sortBy === 'games_count'">
+            Games
+            <span class="sort-indicator" *ngIf="sortBy === 'games_count'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
+          </th>
+          <th (click)="sort('wins')" [class.active]="sortBy === 'wins'">
+            Wins
+            <span class="sort-indicator" *ngIf="sortBy === 'wins'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
+          </th>
+          <th (click)="sort('losses')" [class.active]="sortBy === 'losses'">
+            Losses
+            <span class="sort-indicator" *ngIf="sortBy === 'losses'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
+          </th>
+          <th (click)="sort('yet_to_play')" [class.active]="sortBy === 'yet_to_play'">
+            Remaining
+            <span class="sort-indicator" *ngIf="sortBy === 'yet_to_play'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
+          </th>
+          <th (click)="sort('total_goals')" [class.active]="sortBy === 'total_goals'">
+            Goals
+            <span class="sort-indicator" *ngIf="sortBy === 'total_goals'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
+          </th>
+          <th>Win %</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let game of getFilteredAndSortedData(); let i = index" 
+            [class.top-performer]="i < 3" 
+            [class.bottom-performer]="i >= getFilteredAndSortedData().length - 3">
+          <td class="team-cell">
+            <span class="team-name">{{ game.team }}</span>
+          </td>
+          <td class="number-cell">{{ game.games_count }}</td>
+          <td class="number-cell wins">{{ game.wins }}</td>
+          <td class="number-cell losses">{{ game.losses }}</td>
+          <td class="number-cell remaining">{{ game.yet_to_play }}</td>
+          <td class="number-cell goals">{{ game.total_goals }}</td>
+          <td class="number-cell win-percentage">
+            <div class="progress-container">
+              <div class="progress-bar" [style.width.%]="getWinPercentage(game)">
+                <span class="progress-text">{{ getWinPercentage(game) | number:'1.1-1' }}%</span>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="loading-spinner" *ngIf="!(nhlData$ | async)">
+    <div class="spinner"></div>
+    <p>Loading NHL data...</p>
+  </div>
+</div>
