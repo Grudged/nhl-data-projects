@@ -1,5 +1,5 @@
 [build]
-  publish = "dist/"
+  publish = "dist/nhl-data/browser"
   command = "npm install && ng build"
 
 [build.environment]
