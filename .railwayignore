@@ -1,0 +1,11 @@
+node_modules/
+dist/
+angular.json
+package.json
+package-lock.json
+tsconfig*.json
+src/index.html
+src/main.ts
+src/styles.css
+src/assets/
+public/
