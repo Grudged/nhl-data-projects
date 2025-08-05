@@ -164,14 +164,23 @@ This project uses a **dual-branch deployment strategy** to handle the monorepo s
 
 ## API Endpoints
 
-- `GET /api/nhldata` - Returns aggregated team statistics
-- `GET /api/nhldata?season_type=playoffs` - Returns playoff statistics
+- `GET /api/nhldata` - Returns aggregated team statistics (defaults to 2025 preseason)
+- `GET /api/nhldata?season_type=regular&league_season=2024` - Returns specific season/year data
+- `GET /api/seasons` - Returns available seasons and types in database
+- `GET /api/debug` - Debug endpoint for troubleshooting data filters
 - `GET /api/test` - Health check endpoint
+
+### API Parameters
+- `season_type`: `preseason`, `regular`, `playoffs` (default: `preseason`)
+- `league_season`: Year (e.g., `2024`, `2025`) (default: `2025`)
 
 ## Features
 
+- **Multi-year data support**: View NHL data from multiple seasons (2024, 2025)
+- **Season type filtering**: Switch between preseason, regular season, and playoffs
 - **Real-time NHL data**: Fetches live game data from NHL API via RapidAPI
 - **Team statistics**: Aggregated wins, losses, goals, and games played
+- **Interactive UI**: Year and season type selectors with live filtering
 - **Responsive frontend**: Angular 19 with modern UI components
 - **PostgreSQL persistence**: Reliable data storage with Neon Database
 - **Production deployment**: Dual-platform deployment (Railway + Netlify)
@@ -188,6 +197,15 @@ This project uses a **dual-branch deployment strategy** to handle the monorepo s
 
 ## Deployment URLs
 
+- **Frontend**: `https://nhl-data-visualizer.netlify.app`
 - **Backend API**: `https://nhl-data-projects-production.up.railway.app`
-- **Frontend**: [Update with Netlify URL after successful deployment]
 - **Repository**: `https://github.com/Grudged/nhl-data-projects`
+
+## Recent Updates
+
+### 2025 Data Support (Latest)
+- Added year filtering support for 2025 NHL preseason data
+- Updated UI with year selector (2024/2025) and season type toggles  
+- Enhanced API with `league_season` parameter for multi-year queries
+- Improved frontend state management and loading indicators
+- Added empty state handling for seasons without data
