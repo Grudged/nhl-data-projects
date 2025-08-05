@@ -19,6 +19,20 @@
       </div>
     </div>
 
+    <div class="season-year-container">
+      <label>Year:</label>
+      <div class="season-year-switcher">
+        <button 
+          *ngFor="let year of leagueSeasons" 
+          (click)="setLeagueSeason(year.value)"
+          [class.active]="selectedLeagueSeason === year.value"
+          class="season-btn"
+        >
+          {{ year.label }}
+        </button>
+      </div>
+    </div>
+
     <div class="search-container">
       <input 
         type="text" 
@@ -43,17 +57,17 @@
     </div>
   </div>
 
-  <div class="stats-overview" *ngIf="(nhlData$ | async)?.nhldata as data">
+  <div class="stats-overview" *ngIf="getFilteredAndSortedData().length > 0">
     <div class="stat-card">
-      <div class="stat-number">{{ data.length }}</div>
+      <div class="stat-number">{{ getFilteredAndSortedData().length }}</div>
       <div class="stat-label">Teams</div>
     </div>
     <div class="stat-card">
-      <div class="stat-number">{{ getTotalGames(data) }}</div>
+      <div class="stat-number">{{ getTotalGames(getFilteredAndSortedData()) }}</div>
       <div class="stat-label">Total Games</div>
     </div>
     <div class="stat-card">
-      <div class="stat-number">{{ getTotalGoals(data) }}</div>
+      <div class="stat-number">{{ getTotalGoals(getFilteredAndSortedData()) }}</div>
       <div class="stat-label">Total Goals</div>
     </div>
   </div>
@@ -113,8 +127,12 @@
     </table>
   </div>
 
-  <div class="loading-spinner" *ngIf="!(nhlData$ | async)">
+  <div class="loading-spinner" *ngIf="isLoading">
     <div class="spinner"></div>
     <p>Loading NHL data...</p>
+  </div>
+
+  <div class="no-data-message" *ngIf="!isLoading && getFilteredAndSortedData().length === 0">
+    <p>No data available for {{ selectedLeagueSeason }} {{ getSeasonTypeLabel() }} season.</p>
   </div>
 </div>

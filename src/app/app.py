@@ -36,13 +36,21 @@ def get_db_connection():
 def nhldata():
     # Get season_type from query parameters, default to 'regular'
     season_type = request.args.get('season_type', 'regular')
+    # Get league_season from query parameters, default to '2025'
+    league_season = request.args.get('league_season', '2025')
     conn = None
     try:
         print("Attempting to connect to database...")
         conn = get_db_connection()
         cursor = conn.cursor(cursor_factory=RealDictCursor)
         
-        print("Connected successfully, executing query...")
+        print(f"Connected successfully, executing query with season_type='{season_type}' and league_season='{league_season}'...")
+        
+        # First, check what league_season values are available
+        cursor.execute('SELECT DISTINCT league_season, season_type FROM "nhl_games" ORDER BY league_season, season_type')
+        available_seasons = cursor.fetchall()
+        print(f"Available seasons in database: {available_seasons}")
+        
         cursor.execute('''
             SELECT 
                 team,
@@ -81,13 +89,19 @@ def nhldata():
                     * 
                 FROM "nhl_games"
             ) AS combined
-            WHERE season_type = %s
+            WHERE season_type = %s AND league_season = %s
             GROUP BY team
             ORDER BY total_goals DESC
-        ''', (season_type,))
+        ''', (season_type, league_season))
         
         games = cursor.fetchall()
-        print(f"Query executed successfully, found {len(games)} teams")
+        print(f"Query executed successfully, found {len(games)} teams for season_type='{season_type}' and league_season='{league_season}'")
+        
+        # Log first few results to debug
+        if games:
+            print(f"First team result: {games[0]}")
+        else:
+            print("No teams found for the specified filters")
         
     except psycopg2.Error as e:
         print(f"Database error: {str(e)}")
@@ -113,6 +127,54 @@ def nhldata():
 
     print(f"Returning data for {len(nhldata_list)} teams")
     return jsonify({'nhldata': nhldata_list})
+
+# Endpoint to get available seasons
+@app.route('/api/seasons')
+def get_seasons():
+    conn = None
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(cursor_factory=RealDictCursor)
+        
+        cursor.execute('SELECT DISTINCT league_season, season_type FROM "nhl_games" ORDER BY league_season DESC, season_type')
+        seasons = cursor.fetchall()
+        
+        return jsonify({'seasons': seasons})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    finally:
+        if conn:
+            conn.close()
+
+# Debug endpoint to test specific queries
+@app.route('/api/debug')
+def debug():
+    season_type = request.args.get('season_type', 'regular')
+    league_season = request.args.get('league_season', '2025')
+    
+    conn = None
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(cursor_factory=RealDictCursor)
+        
+        # Check raw data count
+        cursor.execute('SELECT COUNT(*) as total FROM "nhl_games" WHERE season_type = %s AND league_season = %s', (season_type, league_season))
+        count_result = cursor.fetchone()
+        
+        # Get sample data
+        cursor.execute('SELECT * FROM "nhl_games" WHERE season_type = %s AND league_season = %s LIMIT 5', (season_type, league_season))
+        sample_data = cursor.fetchall()
+        
+        return jsonify({
+            'filters': {'season_type': season_type, 'league_season': league_season},
+            'total_games': count_result['total'] if count_result else 0,
+            'sample_data': sample_data
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    finally:
+        if conn:
+            conn.close()
 
 # Simple test endpoint
 @app.route('/api/test')

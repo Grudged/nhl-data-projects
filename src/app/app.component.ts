@@ -28,12 +28,19 @@ export class AppComponent implements OnInit {
   searchTerm: string = '';
   sortBy: string = 'total_goals';
   sortDirection: 'asc' | 'desc' = 'desc';
-  selectedSeasonType: string = 'regular';
+  selectedSeasonType: string = 'preseason';
+  selectedLeagueSeason: string = '2025';
+  isLoading: boolean = false;
   
   seasonTypes = [
     { value: 'preseason', label: 'Preseason', icon: '🏃' },
     { value: 'regular', label: 'Regular', icon: '🏒' },
     { value: 'playoff', label: 'Playoffs', icon: '🏆' }
+  ];
+  
+  leagueSeasons = [
+    { value: '2024', label: '2024' },
+    { value: '2025', label: '2025' }
   ];
   
   private dataSubject = new BehaviorSubject<NHLGame[]>([]);
@@ -45,10 +52,23 @@ export class AppComponent implements OnInit {
   }
 
   private loadData(): void {
-    const apiUrl = `${this.baseApiUrl}?season_type=${this.selectedSeasonType}`;
+    // Clear the existing data first and set loading state
+    this.dataSubject.next([]);
+    this.isLoading = true;
+    
+    const apiUrl = `${this.baseApiUrl}?season_type=${this.selectedSeasonType}&league_season=${this.selectedLeagueSeason}`;
+    console.log('Loading data from:', apiUrl); // Debug log
     this.nhlData$ = this.http.get<NHLDataResponse>(apiUrl);
-    this.nhlData$.subscribe(data => {
-      this.dataSubject.next(data.nhldata);
+    this.nhlData$.subscribe({
+      next: (data) => {
+        console.log('Received data:', data); // Debug log
+        this.dataSubject.next(data.nhldata);
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading data:', error);
+        this.isLoading = false;
+      }
     });
   }
 
@@ -115,5 +135,15 @@ export class AppComponent implements OnInit {
   setSeasonType(seasonType: string): void {
     this.selectedSeasonType = seasonType;
     this.loadData();
+  }
+
+  setLeagueSeason(leagueSeason: string): void {
+    this.selectedLeagueSeason = leagueSeason;
+    this.loadData();
+  }
+
+  getSeasonTypeLabel(): string {
+    const seasonType = this.seasonTypes.find(s => s.value === this.selectedSeasonType);
+    return seasonType ? seasonType.label : '';
   }
 }
