@@ -34,6 +34,12 @@
     (removePlayer)="removePlayerFromTeam($event)">
   </app-fantasy-team>
 
+  <!-- NHL Statistics Overview -->
+  <app-stats-overview 
+    *ngIf="selectedSport === 'nhl'"
+    [nhlData]="getFilteredAndSortedNHLData()">
+  </app-stats-overview>
+
   <!-- NHL Table -->
   <app-nhl-table 
     *ngIf="selectedSport === 'nhl'"

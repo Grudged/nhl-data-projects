@@ -246,6 +246,134 @@ def fantasy_teams():
 def test():
     return jsonify({'message': 'Flask app is working!'})
 
+# API endpoint to get NFL player data
+@app.route('/api/nfldata')
+def nfldata():
+    conn = None
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(cursor_factory=RealDictCursor)
+        
+        cursor.execute('''
+            SELECT 
+                name,
+                team,
+                position,
+                fantasypoints as fantasy_points,
+                (passingtouchdowns + rushingtouchdowns + receivingtouchdowns) as touchdowns,
+                passingyards as passing_yards,
+                rushingyards as rushing_yards,
+                receivingyards as receiving_yards,
+                receptions,
+                tackles,
+                sacks,
+                interceptions,
+                fantasy_team_owner
+            FROM nfl_player_season_stats_2024
+            WHERE fantasypoints > 0
+            ORDER BY fantasypoints DESC
+            LIMIT 500
+        ''')
+        
+        players = cursor.fetchall()
+        
+    except Exception as e:
+        print(f"Error fetching NFL data: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+    finally:
+        if conn:
+            conn.close()
+
+    nfldata_list = []
+    for player in players:
+        nfldata_list.append({
+            'name': player['name'],
+            'team': player['team'],
+            'position': player['position'],
+            'fantasy_points': player['fantasy_points'],
+            'touchdowns': player['touchdowns'],
+            'passing_yards': player['passing_yards'],
+            'rushing_yards': player['rushing_yards'],
+            'receiving_yards': player['receiving_yards'],
+            'receptions': player['receptions'],
+            'tackles': player['tackles'],
+            'sacks': player['sacks'],
+            'interceptions': player['interceptions'],
+            'fantasy_team_owner': player['fantasy_team_owner']
+        })
+
+    return jsonify({'nfldata': nfldata_list})
+
+# API endpoint to get fantasy teams
+@app.route('/api/fantasy-teams')
+def get_fantasy_teams():
+    # For now, return empty teams - user will populate these later
+    fantasy_teams = {
+        'chris': [],
+        'aaron': [],
+        'jay': []
+    }
+    return jsonify({'fantasy_teams': fantasy_teams})
+
+# API endpoint to save fantasy team
+@app.route('/api/fantasy-teams/<owner>', methods=['POST'])
+def save_fantasy_team(owner):
+    if owner not in ['chris', 'aaron', 'jay']:
+        return jsonify({'error': 'Invalid owner'}), 400
+    
+    team_data = request.get_json()
+    # In a real app, you'd save this to database
+    # For now, just return success
+    return jsonify({'success': True, 'owner': owner, 'team': team_data})
+
+# Endpoint to check for NFL tables
+@app.route('/api/tables')
+def check_tables():
+    conn = None
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(cursor_factory=RealDictCursor)
+        
+        # List all tables
+        cursor.execute("""
+            SELECT table_name 
+            FROM information_schema.tables 
+            WHERE table_schema = 'public'
+            ORDER BY table_name;
+        """)
+        
+        tables = cursor.fetchall()
+        table_list = [table['table_name'] for table in tables]
+        
+        # Check specifically for NFL tables
+        nfl_tables = [table for table in table_list if 'nfl' in table.lower()]
+        
+        # Get details for NFL tables if they exist
+        nfl_table_details = {}
+        for nfl_table in nfl_tables:
+            cursor.execute(f'SELECT COUNT(*) as count FROM "{nfl_table}"')
+            count = cursor.fetchone()['count']
+            nfl_table_details[nfl_table] = {'row_count': count}
+            
+            # Get sample columns if data exists
+            if count > 0:
+                cursor.execute(f'SELECT * FROM "{nfl_table}" LIMIT 1')
+                sample = cursor.fetchone()
+                if sample:
+                    nfl_table_details[nfl_table]['columns'] = list(sample.keys())
+        
+        return jsonify({
+            'all_tables': table_list,
+            'nfl_tables': nfl_tables,
+            'nfl_table_details': nfl_table_details,
+            'nfl_player_season_stats_2024_exists': 'nfl_player_season_stats_2024' in table_list
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    finally:
+        if conn:
+            conn.close()
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     debug = os.environ.get('FLASK_ENV') != 'production'

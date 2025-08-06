@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { NHLGame, NFLPlayer, NHLDataResponse, NFLDataResponse, FantasyTeam } from './shared/interfaces';
+import { NHLGame, NFLPlayer, NHLDataResponse, FantasyTeam } from './shared/interfaces';
+
+interface NFLDataResponse {
+  nfldata: NFLPlayer[];
+}
 
 @Component({
   selector: 'app-root',
@@ -216,23 +220,6 @@ export class AppComponent implements OnInit {
     // Method called when sort dropdown changes
   }
 
-  toggleSortDirection(): void {
-    this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
-  }
-
-  getWinPercentage(game: NHLGame): number {
-    const gamesPlayed = game.games_count - game.yet_to_play;
-    return gamesPlayed > 0 ? (game.wins / gamesPlayed) * 100 : 0;
-  }
-
-  getTotalGames(data: NHLGame[]): number {
-    return data.reduce((sum, game) => sum + game.games_count, 0);
-  }
-
-  getTotalGoals(data: NHLGame[]): number {
-    return data.reduce((sum, game) => sum + game.total_goals, 0);
-  }
-  
   setSport(sport: string): void {
     this.selectedSport = sport;
     this.searchTerm = '';
@@ -303,4 +290,20 @@ export class AppComponent implements OnInit {
     return this.getFantasyTeam().reduce((sum, p) => sum + p.fantasy_points, 0);
   }
 
+  toggleSortDirection(): void {
+    this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+  }
+
+  getWinPercentage(game: NHLGame): number {
+    const gamesPlayed = game.games_count - game.yet_to_play;
+    return gamesPlayed > 0 ? (game.wins / gamesPlayed) * 100 : 0;
+  }
+
+  getTotalGames(data: NHLGame[]): number {
+    return data.reduce((sum, game) => sum + game.games_count, 0);
+  }
+
+  getTotalGoals(data: NHLGame[]): number {
+    return data.reduce((sum, game) => sum + game.total_goals, 0);
+  }
 }
