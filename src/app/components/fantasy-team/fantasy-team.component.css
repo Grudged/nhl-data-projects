@@ -5,6 +5,195 @@
   padding: 0 2rem;
 }
 
+/* Selected Fantasy Team Card */
+.selected-fantasy-team {
+  max-width: 100%;
+  margin: 0 auto 2rem;
+  padding: 0;
+}
+
+.team-card {
+  background: rgba(0,0,0,0.2);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+
+.team-header {
+  background: rgba(255,152,0,0.1);
+  border-bottom: 1px solid rgba(255,152,0,0.2);
+  padding: 1.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.team-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #ff9800, #ffc107, #ff9800);
+  background-size: 200% 100%;
+  animation: gradientMove 3s ease infinite;
+}
+
+.team-header h3 {
+  font: 600 1.4rem 'Inter', system-ui, sans-serif;
+  color: #e4e6ea;
+  margin: 0 0 0.8rem 0;
+}
+
+.team-summary {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  font: 500 0.9rem 'Inter', system-ui, sans-serif;
+}
+
+.player-count {
+  color: #64b5f6;
+  background: rgba(100,181,246,0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(100,181,246,0.2);
+}
+
+.total-points {
+  color: #ffc107;
+  background: rgba(255,193,7,0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,193,7,0.2);
+}
+
+.team-players {
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  overflow-y: auto;
+}
+
+.team-player {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 1rem;
+  transition: all 0.3s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.team-player:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,152,0,0.3);
+  transform: translateY(-2px);
+}
+
+.player-basic {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.player-basic strong {
+  font: 600 1rem 'Inter', system-ui, sans-serif;
+  color: #e4e6ea;
+}
+
+.player-team-pos {
+  font: 500 0.85rem 'Inter', system-ui, sans-serif;
+  color: #9c27b0;
+  background: rgba(156,39,176,0.1);
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  align-self: flex-start;
+}
+
+.player-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.fantasy-pts {
+  font: 600 1rem 'Inter', system-ui, sans-serif;
+  color: #ffc107;
+  background: rgba(255,193,7,0.1);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  align-self: flex-start;
+}
+
+.touchdowns {
+  font: 500 0.85rem 'Inter', system-ui, sans-serif;
+  color: #4caf50;
+  background: rgba(76,175,80,0.1);
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  align-self: flex-start;
+}
+
+.yards-info {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.yards-info small {
+  font: 400 0.75rem 'Inter', system-ui, sans-serif;
+  color: #64b5f6;
+  background: rgba(100,181,246,0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.remove-btn-small {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 24px;
+  height: 24px;
+  background: rgba(244,67,54,0.2);
+  color: #f44336;
+  border: 1px solid rgba(244,67,54,0.3);
+  border-radius: 50%;
+  cursor: pointer;
+  font: 600 0.9rem 'Inter', system-ui, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.remove-btn-small:hover {
+  background: rgba(244,67,54,0.3);
+  transform: scale(1.1);
+}
+
+.empty-team {
+  padding: 2rem;
+  text-align: center;
+  color: #888;
+}
+
+.empty-team p {
+  font: 500 1rem 'Inter', system-ui, sans-serif;
+  margin-bottom: 0.5rem;
+}
+
+.empty-team small {
+  font: 400 0.85rem 'Inter', system-ui, sans-serif;
+  opacity: 0.7;
+}
+
 .fantasy-team-header {
   background: rgba(0,0,0,0.2);
   backdrop-filter: blur(20px);
@@ -206,6 +395,34 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .selected-fantasy-team {
+    padding: 0 0.5rem;
+  }
+  
+  .team-header {
+    padding: 1rem;
+  }
+  
+  .team-header h3 {
+    font-size: 1.2rem;
+  }
+  
+  .team-summary {
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: center;
+  }
+  
+  .team-players {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    max-height: 300px;
+  }
+  
+  .team-player {
+    padding: 0.8rem;
+  }
+  
   .fantasy-team-container {
     padding: 0 1rem;
   }

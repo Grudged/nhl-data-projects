@@ -26,13 +26,28 @@
     [nhlData]="getFilteredAndSortedNHLData()">
   </app-stats-overview>
 
-  <!-- Selected Fantasy Team Overview -->
-  <app-fantasy-team 
-    *ngIf="selectedSport === 'nfl'"
-    [selectedOwner]="selectedOwner"
-    [fantasyTeam]="getFantasyTeam()"
-    (removePlayer)="removePlayerFromTeam($event)">
-  </app-fantasy-team>
+  <!-- NFL Two-Column Layout -->
+  <div *ngIf="selectedSport === 'nfl'" class="nfl-layout">
+    <div class="nfl-left-column">
+      <app-fantasy-team 
+        [selectedOwner]="selectedOwner"
+        [fantasyTeam]="getFantasyTeam()"
+        (removePlayer)="removePlayerFromTeam($event)">
+      </app-fantasy-team>
+    </div>
+    
+    <div class="nfl-right-column">
+      <app-nfl-table 
+        [nflData]="getFilteredAndSortedNFLData()"
+        [sortBy]="sortBy"
+        [sortDirection]="sortDirection"
+        [selectedOwner]="selectedOwner"
+        (sortChange)="sort($event)"
+        (addPlayer)="addPlayerToTeam($event)"
+        (removePlayer)="removePlayerFromTeam($event)">
+      </app-nfl-table>
+    </div>
+  </div>
 
   <!-- NHL Table -->
   <app-nhl-table 
@@ -42,18 +57,6 @@
     [sortDirection]="sortDirection"
     (sortChange)="sort($event)">
   </app-nhl-table>
-
-  <!-- NFL Table -->
-  <app-nfl-table 
-    *ngIf="selectedSport === 'nfl'"
-    [nflData]="getFilteredAndSortedNFLData()"
-    [sortBy]="sortBy"
-    [sortDirection]="sortDirection"
-    [selectedOwner]="selectedOwner"
-    (sortChange)="sort($event)"
-    (addPlayer)="addPlayerToTeam($event)"
-    (removePlayer)="removePlayerFromTeam($event)">
-  </app-nfl-table>
 
   <!-- Loading Component -->
   <app-loading 

@@ -1,8 +1,8 @@
 /* NFL Table Component Styles */
 .table-container {
-  max-width: 1400px;
-  margin: 2rem auto;
-  padding: 0 2rem;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
   overflow-x: auto;
   border-radius: 24px;
   background: rgba(0,0,0,0.2);
