@@ -176,6 +176,71 @@ def debug():
         if conn:
             conn.close()
 
+# API endpoint to get NFL data
+@app.route('/api/nfldata')
+def nfldata():
+    conn = None
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(cursor_factory=RealDictCursor)
+        
+        cursor.execute('''
+            SELECT 
+                name,
+                team,
+                position,
+                fantasypoints AS fantasy_points,
+                touchdowns,
+                passingyards AS passing_yards,
+                rushingyards AS rushing_yards,
+                receivingyards AS receiving_yards,
+                receptions,
+                tackles,
+                sacks,
+                interceptions
+            FROM nfl_player_season_stats_2024
+            ORDER BY fantasy_points DESC
+        ''')
+        
+        players = cursor.fetchall()
+        
+    except Exception as e:
+        print(f"Error in nfldata endpoint: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+    finally:
+        if conn:
+            conn.close()
+
+    nfldata_list = []
+    for player in players:
+        nfldata_list.append({
+            'name': player['name'],
+            'team': player['team'],
+            'position': player['position'],
+            'fantasy_points': player['fantasy_points'],
+            'touchdowns': player['touchdowns'],
+            'passing_yards': player['passing_yards'],
+            'rushing_yards': player['rushing_yards'],
+            'receiving_yards': player['receiving_yards'],
+            'receptions': player['receptions'],
+            'tackles': player['tackles'],
+            'sacks': player['sacks'],
+            'interceptions': player['interceptions']
+        })
+
+    return jsonify({'nfldata': nfldata_list})
+
+# API endpoint to get fantasy teams
+@app.route('/api/fantasy-teams')
+def fantasy_teams():
+    # Mock fantasy teams data
+    mock_teams = {
+        'chris': [],
+        'aaron': [],
+        'jay': []
+    }
+    return jsonify({'fantasy_teams': mock_teams})
+
 # Simple test endpoint
 @app.route('/api/test')
 def test():
