@@ -192,7 +192,7 @@
 }
 
 .sort-select option {
-  background: #1a1a1a !important;
+  background: rgba(10,14,20,0.95) !important;
   color: #e4e6ea !important;
   padding: 12px !important;
 }

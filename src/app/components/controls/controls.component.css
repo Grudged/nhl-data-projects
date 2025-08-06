@@ -1,1 +1,39 @@
 /* Controls specific styles */
+
+.sort-select {
+  padding: 0.8rem 3rem 0.8rem 1.2rem !important;
+  background: rgba(255,255,255,0.03) url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b0b3b8' stroke-width='2'><polyline points='6,9 12,15 18,9'/></svg>") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 1rem center !important;
+  background-size: 16px !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 16px !important;
+  color: #e4e6ea !important;
+  font: 500 0.85rem inherit !important;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+  appearance: none;
+  min-width: 160px;
+  backdrop-filter: blur(10px);
+}
+
+.sort-select option {
+  background: rgba(10,14,20,0.95) !important;
+  color: #e4e6ea !important;
+  padding: 12px !important;
+}
+
+.sort-select:hover {
+  background-color: rgba(255,255,255,0.08) !important;
+  border-color: rgba(33,150,243,0.3) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2) !important;
+}
+
+.sort-select:focus {
+  outline: 0 !important;
+  border-color: #2196f3 !important;
+  box-shadow: 0 0 0 3px rgba(33,150,243,0.1) !important;
+  background-color: rgba(255,255,255,0.08) !important;
+  transform: translateY(-2px);
+}
