@@ -72,8 +72,8 @@ export class AppComponent implements OnInit {
   
   owners = [
     { value: 'Pretty Fly 4a Dicker Guy', label: 'Pretty Fly 4a Dicker Guy', icon: '👨' },
-    { value: 'BlevelandClowns', label: 'BlevelandClowns', icon: '🧑' },
-    { value: 'Team 610jason', label: 'Team 610jason', icon: '🧔' }
+    { value: 'BlevelandClowns', label: 'BlevelandClowns', icon: '🧑🏾' },
+    { value: 'Team 610jason', label: 'Team 610jason', icon: '🧑‍🦲' }
   ];
   
   seasonTypes = [
