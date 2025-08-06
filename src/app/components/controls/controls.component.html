@@ -1,0 +1,96 @@
+<div class="controls-section">
+  <!-- Sport Selection -->
+  <div class="sport-container">
+    <label>Sport:</label>
+    <div class="sport-switcher">
+      <button 
+        *ngFor="let sport of sports" 
+        (click)="setSport(sport.value)"
+        [class.active]="selectedSport === sport.value"
+        class="season-btn"
+      >
+        {{ sport.icon }} {{ sport.label }}
+      </button>
+    </div>
+  </div>
+
+  <!-- NHL Controls -->
+  <div *ngIf="selectedSport === 'nhl'">
+    <div class="season-type-container">
+      <label>Season:</label>
+      <div class="season-switcher">
+        <button 
+          *ngFor="let type of seasonTypes" 
+          (click)="setSeasonType(type.value)"
+          [class.active]="selectedSeasonType === type.value"
+          class="season-btn"
+        >
+          {{ type.icon }} {{ type.label }}
+        </button>
+      </div>
+    </div>
+
+    <div class="season-year-container">
+      <label>Year:</label>
+      <div class="season-year-switcher">
+        <button 
+          *ngFor="let year of leagueSeasons" 
+          (click)="setLeagueSeason(year.value)"
+          [class.active]="selectedLeagueSeason === year.value"
+          class="season-btn"
+        >
+          {{ year.label }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NFL Controls -->
+  <div *ngIf="selectedSport === 'nfl'" class="nfl-controls">
+    <div class="owner-container">
+      <label>Fantasy Owner:</label>
+      <div class="owner-switcher">
+        <button 
+          *ngFor="let owner of owners" 
+          (click)="setOwner(owner.value)"
+          [class.active]="selectedOwner === owner.value"
+          class="season-btn"
+        >
+          {{ owner.icon }} {{ owner.label }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="search-container">
+    <input 
+      type="text" 
+      [placeholder]="selectedSport === 'nhl' ? 'Search teams...' : 'Search players...'"
+      [ngModel]="searchTerm"
+      (ngModelChange)="onSearchTermChange($event)"
+      class="search-input"
+    />
+  </div>
+  
+  <div class="sort-container">
+    <label>Sort by:</label>
+    <select [(ngModel)]="sortBy" (change)="onSortChange()" class="sort-select">
+      <!-- NHL Sort Options -->
+      <option *ngIf="selectedSport === 'nhl'" value="team">Team Name</option>
+      <option *ngIf="selectedSport === 'nhl'" value="wins">Wins</option>
+      <option *ngIf="selectedSport === 'nhl'" value="losses">Losses</option>
+      <option *ngIf="selectedSport === 'nhl'" value="total_goals">Total Goals</option>
+      <option *ngIf="selectedSport === 'nhl'" value="games_count">Games Played</option>
+      
+      <!-- NFL Sort Options -->
+      <option *ngIf="selectedSport === 'nfl'" value="name">Player Name</option>
+      <option *ngIf="selectedSport === 'nfl'" value="team">Team</option>
+      <option *ngIf="selectedSport === 'nfl'" value="position">Position</option>
+      <option *ngIf="selectedSport === 'nfl'" value="fantasy_points">Fantasy Points</option>
+      <option *ngIf="selectedSport === 'nfl'" value="touchdowns">Touchdowns</option>
+    </select>
+    <button (click)="toggleSortDirection()" class="sort-btn" [class.desc]="sortDirection === 'desc'">
+      {{ sortDirection === 'asc' ? '↑' : '↓' }}
+    </button>
+  </div>
+</div>

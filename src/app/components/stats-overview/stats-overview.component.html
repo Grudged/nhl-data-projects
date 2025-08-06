@@ -1,0 +1,14 @@
+<div class="stats-overview" *ngIf="nhlData.length > 0">
+  <div class="stat-card">
+    <div class="stat-number">{{ nhlData.length }}</div>
+    <div class="stat-label">Teams</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">{{ getTotalGames(nhlData) }}</div>
+    <div class="stat-label">Total Games</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">{{ getTotalGoals(nhlData) }}</div>
+    <div class="stat-label">Total Goals</div>
+  </div>
+</div>

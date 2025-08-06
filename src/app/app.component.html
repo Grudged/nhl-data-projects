@@ -1,291 +1,71 @@
 <div class="app-container">
-  <header class="app-header">
-    <h1 class="app-title">
-      <span *ngIf="selectedSport === 'nhl'">🏒 NHL Team Statistics</span>
-      <span *ngIf="selectedSport === 'nfl'">🏈 NFL Fantasy Teams</span>
-    </h1>
-    <p class="app-subtitle" *ngIf="selectedSport === 'nhl'">Regular Season Performance Dashboard</p>
-    <p class="app-subtitle" *ngIf="selectedSport === 'nfl'">Fantasy Football Dashboard</p>
-  </header>
+  <!-- Header Component -->
+  <app-header [selectedSport]="selectedSport"></app-header>
 
-  <div class="controls-section">
-    <!-- Sport Selection -->
-    <div class="sport-container">
-      <label>Sport:</label>
-      <div class="sport-switcher">
-        <button 
-          *ngFor="let sport of sports" 
-          (click)="setSport(sport.value)"
-          [class.active]="selectedSport === sport.value"
-          class="season-btn"
-        >
-          {{ sport.icon }} {{ sport.label }}
-        </button>
-      </div>
-    </div>
-
-    <!-- NHL Controls -->
-    <div *ngIf="selectedSport === 'nhl'">
-      <div class="season-type-container">
-        <label>Season:</label>
-        <div class="season-switcher">
-          <button 
-            *ngFor="let type of seasonTypes" 
-            (click)="setSeasonType(type.value)"
-            [class.active]="selectedSeasonType === type.value"
-            class="season-btn"
-          >
-            {{ type.icon }} {{ type.label }}
-          </button>
-        </div>
-      </div>
-
-      <div class="season-year-container">
-        <label>Year:</label>
-        <div class="season-year-switcher">
-          <button 
-            *ngFor="let year of leagueSeasons" 
-            (click)="setLeagueSeason(year.value)"
-            [class.active]="selectedLeagueSeason === year.value"
-            class="season-btn"
-          >
-            {{ year.label }}
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- NFL Controls -->
-    <div *ngIf="selectedSport === 'nfl'" class="nfl-controls">
-      <div class="owner-container">
-        <label>Fantasy Owner:</label>
-        <div class="owner-switcher">
-          <button 
-            *ngFor="let owner of owners" 
-            (click)="setOwner(owner.value)"
-            [class.active]="selectedOwner === owner.value"
-            class="season-btn"
-          >
-            {{ owner.icon }} {{ owner.label }}
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="search-container">
-      <input 
-        type="text" 
-        [placeholder]="selectedSport === 'nhl' ? 'Search teams...' : 'Search players...'"
-        [(ngModel)]="searchTerm"
-        class="search-input"
-      />
-    </div>
-    
-    <div class="sort-container">
-      <label>Sort by:</label>
-      <select [(ngModel)]="sortBy" (change)="onSortChange()" class="sort-select">
-        <!-- NHL Sort Options -->
-        <option *ngIf="selectedSport === 'nhl'" value="team">Team Name</option>
-        <option *ngIf="selectedSport === 'nhl'" value="wins">Wins</option>
-        <option *ngIf="selectedSport === 'nhl'" value="losses">Losses</option>
-        <option *ngIf="selectedSport === 'nhl'" value="total_goals">Total Goals</option>
-        <option *ngIf="selectedSport === 'nhl'" value="games_count">Games Played</option>
-        
-        <!-- NFL Sort Options -->
-        <option *ngIf="selectedSport === 'nfl'" value="name">Player Name</option>
-        <option *ngIf="selectedSport === 'nfl'" value="team">Team</option>
-        <option *ngIf="selectedSport === 'nfl'" value="position">Position</option>
-        <option *ngIf="selectedSport === 'nfl'" value="fantasy_points">Fantasy Points</option>
-        <option *ngIf="selectedSport === 'nfl'" value="touchdowns">Touchdowns</option>
-      </select>
-      <button (click)="toggleSortDirection()" class="sort-btn" [class.desc]="sortDirection === 'desc'">
-        {{ sortDirection === 'asc' ? '↑' : '↓' }}
-      </button>
-    </div>
-  </div>
+  <!-- Controls Component -->
+  <app-controls
+    [selectedSport]="selectedSport"
+    [selectedSeasonType]="selectedSeasonType"
+    [selectedLeagueSeason]="selectedLeagueSeason"
+    [selectedOwner]="selectedOwner"
+    [searchTerm]="searchTerm"
+    [sortBy]="sortBy"
+    [sortDirection]="sortDirection"
+    (sportChange)="setSport($event)"
+    (seasonTypeChange)="setSeasonType($event)"
+    (leagueSeasonChange)="setLeagueSeason($event)"
+    (ownerChange)="setOwner($event)"
+    (searchTermChange)="searchTerm = $event"
+    (sortByChange)="sortBy = $event"
+    (sortDirectionToggle)="toggleSortDirection()">
+  </app-controls>
 
   <!-- NHL Statistics Overview -->
-  <div class="stats-overview" *ngIf="selectedSport === 'nhl' && getFilteredAndSortedNHLData().length > 0">
-    <div class="stat-card">
-      <div class="stat-number">{{ getFilteredAndSortedNHLData().length }}</div>
-      <div class="stat-label">Teams</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">{{ getTotalGames(getFilteredAndSortedNHLData()) }}</div>
-      <div class="stat-label">Total Games</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">{{ getTotalGoals(getFilteredAndSortedNHLData()) }}</div>
-      <div class="stat-label">Total Goals</div>
-    </div>
-  </div>
+  <app-stats-overview 
+    *ngIf="selectedSport === 'nhl'"
+    [nhlData]="getFilteredAndSortedNHLData()">
+  </app-stats-overview>
 
   <!-- Selected Fantasy Team Overview -->
-  <div class="selected-fantasy-team" *ngIf="selectedSport === 'nfl'">
-    <div class="team-card">
-      <div class="team-header">
-        <h3>{{ selectedOwner | titlecase }}'s Fantasy Team</h3>
-        <div class="team-summary">
-          <span class="player-count">{{ getFantasyTeam().length }} Players</span>
-          <span class="total-points">{{ getTotalFantasyPoints() | number:'1.1-1' }} pts</span>
-        </div>
-      </div>
-      
-      <div class="team-players" *ngIf="getFantasyTeam().length > 0">
-        <div *ngFor="let player of getFantasyTeam()" class="team-player">
-          <div class="player-basic">
-            <strong>{{ player.name }}</strong>
-            <span class="player-team-pos">({{ player.team }} - {{ player.position }})</span>
-          </div>
-          <div class="player-stats">
-            <span class="fantasy-pts">{{ player.fantasy_points | number:'1.1-1' }} pts</span>
-            <span class="touchdowns" *ngIf="player.touchdowns > 0">{{ player.touchdowns }} TDs</span>
-            <div class="yards-info" *ngIf="player.passing_yards > 0 || player.rushing_yards > 0 || player.receiving_yards > 0">
-              <small *ngIf="player.passing_yards > 0">Pass: {{ player.passing_yards }}</small>
-              <small *ngIf="player.rushing_yards > 0">Rush: {{ player.rushing_yards }}</small>
-              <small *ngIf="player.receiving_yards > 0">Rec: {{ player.receiving_yards }}</small>
-            </div>
-          </div>
-          <button (click)="removePlayerFromTeam(player)" class="remove-btn-small">×</button>
-        </div>
-      </div>
-      
-      <div class="empty-team" *ngIf="getFantasyTeam().length === 0">
-        <p>No players assigned to {{ selectedOwner | titlecase }}</p>
-        <small>Add players from the table below</small>
-      </div>
-    </div>
-  </div>
+  <app-fantasy-team 
+    *ngIf="selectedSport === 'nfl'"
+    [selectedOwner]="selectedOwner"
+    [fantasyTeam]="getFantasyTeam()"
+    (removePlayer)="removePlayerFromTeam($event)">
+  </app-fantasy-team>
 
   <!-- NHL Table -->
-  <div class="table-container" *ngIf="selectedSport === 'nhl'">
-    <table class="nhl-table">
-      <thead>
-        <tr>
-          <th (click)="sort('team')" [class.active]="sortBy === 'team'">
-            Team
-            <span class="sort-indicator" *ngIf="sortBy === 'team'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
-          </th>
-          <th (click)="sort('games_count')" [class.active]="sortBy === 'games_count'">
-            Games
-            <span class="sort-indicator" *ngIf="sortBy === 'games_count'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
-          </th>
-          <th (click)="sort('wins')" [class.active]="sortBy === 'wins'">
-            Wins
-            <span class="sort-indicator" *ngIf="sortBy === 'wins'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
-          </th>
-          <th (click)="sort('losses')" [class.active]="sortBy === 'losses'">
-            Losses
-            <span class="sort-indicator" *ngIf="sortBy === 'losses'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
-          </th>
-          <th (click)="sort('yet_to_play')" [class.active]="sortBy === 'yet_to_play'">
-            Remaining
-            <span class="sort-indicator" *ngIf="sortBy === 'yet_to_play'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
-          </th>
-          <th (click)="sort('total_goals')" [class.active]="sortBy === 'total_goals'">
-            Goals
-            <span class="sort-indicator" *ngIf="sortBy === 'total_goals'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
-          </th>
-          <th>Win %</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let game of getFilteredAndSortedNHLData(); let i = index" 
-            [class.top-performer]="i < 3" 
-            [class.bottom-performer]="i >= getFilteredAndSortedNHLData().length - 3">
-          <td class="team-cell">
-            <span class="team-name">{{ game.team }}</span>
-          </td>
-          <td class="number-cell">{{ game.games_count }}</td>
-          <td class="number-cell wins">{{ game.wins }}</td>
-          <td class="number-cell losses">{{ game.losses }}</td>
-          <td class="number-cell remaining">{{ game.yet_to_play }}</td>
-          <td class="number-cell goals">{{ game.total_goals }}</td>
-          <td class="number-cell win-percentage">
-            <div class="progress-container">
-              <div class="progress-bar" [style.width.%]="getWinPercentage(game)">
-                <span class="progress-text">{{ getWinPercentage(game) | number:'1.1-1' }}%</span>
-              </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <app-nhl-table 
+    *ngIf="selectedSport === 'nhl'"
+    [nhlData]="getFilteredAndSortedNHLData()"
+    [sortBy]="sortBy"
+    [sortDirection]="sortDirection"
+    (sortChange)="sort($event)">
+  </app-nhl-table>
 
   <!-- NFL Table -->
-  <div class="table-container" *ngIf="selectedSport === 'nfl'">
-    <table class="nfl-table">
-      <thead>
-        <tr>
-          <th (click)="sort('name')" [class.active]="sortBy === 'name'">
-            Player
-            <span class="sort-indicator" *ngIf="sortBy === 'name'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
-          </th>
-          <th (click)="sort('team')" [class.active]="sortBy === 'team'">
-            Team
-            <span class="sort-indicator" *ngIf="sortBy === 'team'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
-          </th>
-          <th (click)="sort('position')" [class.active]="sortBy === 'position'">
-            Position
-            <span class="sort-indicator" *ngIf="sortBy === 'position'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
-          </th>
-          <th (click)="sort('fantasy_points')" [class.active]="sortBy === 'fantasy_points'">
-            Fantasy Pts
-            <span class="sort-indicator" *ngIf="sortBy === 'fantasy_points'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
-          </th>
-          <th (click)="sort('touchdowns')" [class.active]="sortBy === 'touchdowns'">
-            TDs
-            <span class="sort-indicator" *ngIf="sortBy === 'touchdowns'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
-          </th>
-          <th>Yards</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let player of getFilteredAndSortedNFLData(); let i = index" 
-            [class.top-performer]="i < 10" 
-            [class.on-team]="isPlayerInTeam(player)">
-          <td class="player-cell">
-            <span class="player-name">{{ player.name }}</span>
-          </td>
-          <td class="team-cell">{{ player.team }}</td>
-          <td class="position-cell">{{ player.position }}</td>
-          <td class="number-cell fantasy-points">{{ player.fantasy_points | number:'1.1-1' }}</td>
-          <td class="number-cell touchdowns">{{ player.touchdowns }}</td>
-          <td class="yards-cell">
-            <small>
-              <div *ngIf="player.passing_yards > 0">Pass: {{ player.passing_yards }}</div>
-              <div *ngIf="player.rushing_yards > 0">Rush: {{ player.rushing_yards }}</div>
-              <div *ngIf="player.receiving_yards > 0">Rec: {{ player.receiving_yards }}</div>
-            </small>
-          </td>
-          <td class="action-cell">
-            <button 
-              *ngIf="!isPlayerInTeam(player)"
-              (click)="addPlayerToTeam(player)" 
-              class="add-btn">
-              ➕ Add
-            </button>
-            <button 
-              *ngIf="isPlayerInTeam(player)"
-              (click)="removePlayerFromTeam(player)" 
-              class="remove-btn">
-              ➖ Remove
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <app-nfl-table 
+    *ngIf="selectedSport === 'nfl'"
+    [nflData]="getFilteredAndSortedNFLData()"
+    [sortBy]="sortBy"
+    [sortDirection]="sortDirection"
+    [selectedOwner]="selectedOwner"
+    (sortChange)="sort($event)"
+    (addPlayer)="addPlayerToTeam($event)"
+    (removePlayer)="removePlayerFromTeam($event)">
+  </app-nfl-table>
 
-  <div class="loading-spinner" *ngIf="isLoading">
-    <div class="spinner"></div>
-    <p>Loading {{ selectedSport === 'nhl' ? 'NHL' : 'NFL' }} data...</p>
-  </div>
+  <!-- Loading Component -->
+  <app-loading 
+    *ngIf="isLoading"
+    [selectedSport]="selectedSport">
+  </app-loading>
 
-  <div class="no-data-message" *ngIf="!isLoading && getCurrentData().length === 0">
-    <p *ngIf="selectedSport === 'nhl'">No data available for {{ selectedLeagueSeason }} {{ getSeasonTypeLabel() }} season.</p>
-    <p *ngIf="selectedSport === 'nfl'">No NFL player data available.</p>
-  </div>
+  <!-- No Data Component -->
+  <app-no-data 
+    *ngIf="!isLoading && getCurrentData().length === 0"
+    [selectedSport]="selectedSport"
+    [selectedLeagueSeason]="selectedLeagueSeason"
+    [seasonTypeLabel]="getSeasonTypeLabel()">
+  </app-no-data>
 </div>

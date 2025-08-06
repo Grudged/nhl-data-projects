@@ -1,0 +1,54 @@
+<div class="table-container">
+  <table class="nhl-table">
+    <thead>
+      <tr>
+        <th (click)="sort('team')" [class.active]="sortBy === 'team'">
+          Team
+          <span class="sort-indicator" *ngIf="sortBy === 'team'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
+        </th>
+        <th (click)="sort('games_count')" [class.active]="sortBy === 'games_count'">
+          Games
+          <span class="sort-indicator" *ngIf="sortBy === 'games_count'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
+        </th>
+        <th (click)="sort('wins')" [class.active]="sortBy === 'wins'">
+          Wins
+          <span class="sort-indicator" *ngIf="sortBy === 'wins'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
+        </th>
+        <th (click)="sort('losses')" [class.active]="sortBy === 'losses'">
+          Losses
+          <span class="sort-indicator" *ngIf="sortBy === 'losses'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
+        </th>
+        <th (click)="sort('yet_to_play')" [class.active]="sortBy === 'yet_to_play'">
+          Remaining
+          <span class="sort-indicator" *ngIf="sortBy === 'yet_to_play'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
+        </th>
+        <th (click)="sort('total_goals')" [class.active]="sortBy === 'total_goals'">
+          Goals
+          <span class="sort-indicator" *ngIf="sortBy === 'total_goals'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
+        </th>
+        <th>Win %</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let game of nhlData; let i = index" 
+          [class.top-performer]="i < 3" 
+          [class.bottom-performer]="i >= nhlData.length - 3">
+        <td class="team-cell">
+          <span class="team-name">{{ game.team }}</span>
+        </td>
+        <td class="number-cell">{{ game.games_count }}</td>
+        <td class="number-cell wins">{{ game.wins }}</td>
+        <td class="number-cell losses">{{ game.losses }}</td>
+        <td class="number-cell remaining">{{ game.yet_to_play }}</td>
+        <td class="number-cell goals">{{ game.total_goals }}</td>
+        <td class="number-cell win-percentage">
+          <div class="progress-container">
+            <div class="progress-bar" [style.width.%]="getWinPercentage(game)">
+              <span class="progress-text">{{ getWinPercentage(game) | number:'1.1-1' }}%</span>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

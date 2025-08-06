@@ -1,0 +1,64 @@
+<div class="table-container">
+  <table class="nfl-table">
+    <thead>
+      <tr>
+        <th (click)="sort('name')" [class.active]="sortBy === 'name'">
+          Player
+          <span class="sort-indicator" *ngIf="sortBy === 'name'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
+        </th>
+        <th (click)="sort('team')" [class.active]="sortBy === 'team'">
+          Team
+          <span class="sort-indicator" *ngIf="sortBy === 'team'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
+        </th>
+        <th (click)="sort('position')" [class.active]="sortBy === 'position'">
+          Position
+          <span class="sort-indicator" *ngIf="sortBy === 'position'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
+        </th>
+        <th (click)="sort('fantasy_points')" [class.active]="sortBy === 'fantasy_points'">
+          Fantasy Pts
+          <span class="sort-indicator" *ngIf="sortBy === 'fantasy_points'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
+        </th>
+        <th (click)="sort('touchdowns')" [class.active]="sortBy === 'touchdowns'">
+          TDs
+          <span class="sort-indicator" *ngIf="sortBy === 'touchdowns'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
+        </th>
+        <th>Yards</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let player of nflData; let i = index" 
+          [class.top-performer]="i < 10" 
+          [class.on-team]="isPlayerInTeam(player)">
+        <td class="player-cell">
+          <span class="player-name">{{ player.name }}</span>
+        </td>
+        <td class="team-cell">{{ player.team }}</td>
+        <td class="position-cell">{{ player.position }}</td>
+        <td class="number-cell fantasy-points">{{ player.fantasy_points | number:'1.1-1' }}</td>
+        <td class="number-cell touchdowns">{{ player.touchdowns }}</td>
+        <td class="yards-cell">
+          <small>
+            <div *ngIf="player.passing_yards > 0">Pass: {{ player.passing_yards }}</div>
+            <div *ngIf="player.rushing_yards > 0">Rush: {{ player.rushing_yards }}</div>
+            <div *ngIf="player.receiving_yards > 0">Rec: {{ player.receiving_yards }}</div>
+          </small>
+        </td>
+        <td class="action-cell">
+          <button 
+            *ngIf="!isPlayerInTeam(player)"
+            (click)="addPlayerToTeam(player)" 
+            class="add-btn">
+            ➕ Add
+          </button>
+          <button 
+            *ngIf="isPlayerInTeam(player)"
+            (click)="removePlayerFromTeam(player)" 
+            class="remove-btn">
+            ➖ Remove
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

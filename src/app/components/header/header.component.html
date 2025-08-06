@@ -1,0 +1,8 @@
+<header class="app-header">
+  <h1 class="app-title">
+    <span *ngIf="selectedSport === 'nhl'">🏒 NHL Team Statistics</span>
+    <span *ngIf="selectedSport === 'nfl'">🏈 NFL Fantasy Teams</span>
+  </h1>
+  <p class="app-subtitle" *ngIf="selectedSport === 'nhl'">Regular Season Performance Dashboard</p>
+  <p class="app-subtitle" *ngIf="selectedSport === 'nfl'">Fantasy Football Dashboard</p>
+</header>

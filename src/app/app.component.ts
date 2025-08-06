@@ -1,43 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-
-interface NHLGame {
-  team: string;
-  games_count: number;
-  wins: number;
-  losses: number;
-  yet_to_play: number;
-  total_goals: number;
-}
-
-interface NFLPlayer {
-  name: string;
-  team: string;
-  position: string;
-  fantasy_points: number;
-  touchdowns: number;
-  passing_yards: number;
-  rushing_yards: number;
-  receiving_yards: number;
-  receptions: number;
-  tackles: number;
-  sacks: number;
-  interceptions: number;
-  fantasy_team_owner?: string;
-}
-
-interface NHLDataResponse {
-  nhldata: NHLGame[];
-}
-
-interface NFLDataResponse {
-  nfldata: NFLPlayer[];
-}
-
-interface FantasyTeam {
-  [key: string]: NFLPlayer[];
-}
+import { NHLGame, NFLPlayer, NHLDataResponse, NFLDataResponse, FantasyTeam } from './shared/interfaces';
 
 @Component({
   selector: 'app-root',
