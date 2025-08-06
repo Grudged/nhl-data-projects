@@ -57,17 +57,17 @@
     </div>
   </div>
 
-  <div class="stats-overview" *ngIf="getFilteredAndSortedData().length > 0">
+  <div class="stats-overview" *ngIf="getFilteredAndSortedNHLData().length > 0">
     <div class="stat-card">
-      <div class="stat-number">{{ getFilteredAndSortedData().length }}</div>
+      <div class="stat-number">{{ getFilteredAndSortedNHLData().length }}</div>
       <div class="stat-label">Teams</div>
     </div>
     <div class="stat-card">
-      <div class="stat-number">{{ getTotalGames(getFilteredAndSortedData()) }}</div>
+      <div class="stat-number">{{ getTotalGames(getFilteredAndSortedNHLData()) }}</div>
       <div class="stat-label">Total Games</div>
     </div>
     <div class="stat-card">
-      <div class="stat-number">{{ getTotalGoals(getFilteredAndSortedData()) }}</div>
+      <div class="stat-number">{{ getTotalGoals(getFilteredAndSortedNHLData()) }}</div>
       <div class="stat-label">Total Goals</div>
     </div>
   </div>
@@ -104,9 +104,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let game of getFilteredAndSortedData(); let i = index" 
+        <tr *ngFor="let game of getFilteredAndSortedNHLData(); let i = index" 
             [class.top-performer]="i < 3" 
-            [class.bottom-performer]="i >= getFilteredAndSortedData().length - 3">
+            [class.bottom-performer]="i >= getFilteredAndSortedNHLData().length - 3">
           <td class="team-cell">
             <span class="team-name">{{ game.team }}</span>
           </td>
@@ -132,7 +132,7 @@
     <p>Loading NHL data...</p>
   </div>
 
-  <div class="no-data-message" *ngIf="!isLoading && getFilteredAndSortedData().length === 0">
+  <div class="no-data-message" *ngIf="!isLoading && getFilteredAndSortedNHLData().length === 0">
     <p>No data available for {{ selectedLeagueSeason }} {{ getSeasonTypeLabel() }} season.</p>
   </div>
 </div>
