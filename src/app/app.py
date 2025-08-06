@@ -195,7 +195,7 @@ def nfldata():
                 team,
                 position,
                 fantasypoints as fantasy_points,
-                touchdowns,
+                (passingtouchdowns + rushingtouchdowns + receivingtouchdowns) as touchdowns,
                 passingyards as passing_yards,
                 rushingyards as rushing_yards,
                 receivingyards as receiving_yards,
