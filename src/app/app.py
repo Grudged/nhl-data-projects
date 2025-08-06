@@ -202,7 +202,8 @@ def nfldata():
                 receptions,
                 tackles,
                 sacks,
-                interceptions
+                interceptions,
+                fantasy_team_owner
             FROM nfl_player_season_stats_2024
             WHERE fantasypoints > 0
             ORDER BY fantasypoints DESC
@@ -232,7 +233,8 @@ def nfldata():
             'receptions': player['receptions'],
             'tackles': player['tackles'],
             'sacks': player['sacks'],
-            'interceptions': player['interceptions']
+            'interceptions': player['interceptions'],
+            'fantasy_team_owner': player['fantasy_team_owner']
         })
 
     return jsonify({'nfldata': nfldata_list})
