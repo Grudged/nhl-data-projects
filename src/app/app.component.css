@@ -1,32 +1,49 @@
-.app-container{min-height:100vh;background:linear-gradient(135deg,#0f1419,#1a1f2e,#2d1b3d);color:#e4e6ea;font-family:system-ui,sans-serif;margin:0;padding:0}
-.app-header{text-align:center;padding:2rem 1rem;background:rgba(0,0,0,.3);border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:2rem}
-.app-title{font:700 2.5rem inherit;background:linear-gradient(45deg,#64b5f6,#2196f3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0}
-.app-subtitle{font:300 1.1rem inherit;color:#b0b3b8;margin:.5rem 0 0}
-.controls-section{display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto 2rem;padding:0 1rem;gap:1rem;flex-wrap:wrap}
+.app-container{min-height:100vh;background:linear-gradient(135deg,#0a0e14,#1a1f2e,#2d1b3d,#1e2328);background-size:400% 400%;animation:gradientShift 15s ease infinite;color:#e4e6ea;font-family:'Inter',system-ui,sans-serif;margin:0;padding:0;position:relative}
+.app-container::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 20% 50%,rgba(64,181,246,0.05) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(138,43,226,0.05) 0%,transparent 50%);pointer-events:none}
+@keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.app-header{text-align:center;padding:3rem 2rem;background:rgba(0,0,0,.4);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:2rem;position:relative;overflow:hidden}
+.app-header::before{content:'';position:absolute;top:-2px;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#64b5f6,#2196f3,#8a2be2,transparent);animation:shimmer 3s ease-in-out infinite}
+@keyframes shimmer{0%,100%{transform:translateX(-100%)}50%{transform:translateX(100%)}}
+.app-title{font:700 3rem inherit;background:linear-gradient(45deg,#64b5f6,#2196f3,#8a2be2);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0;animation:gradientMove 3s ease-in-out infinite;text-shadow:0 0 30px rgba(100,181,246,0.3)}
+@keyframes gradientMove{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.app-subtitle{font:400 1.2rem inherit;color:#b0b3b8;margin:.5rem 0 0;opacity:.9}
+.controls-section{display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto 2rem;padding:0 1rem;gap:1rem;flex-wrap:wrap;background:rgba(0,0,0,.2);backdrop-filter:blur(20px);border-radius:20px;border:1px solid rgba(255,255,255,.1);padding:1.5rem}
 .sport-container,.owner-container,.nfl-controls,.season-type-container,.sort-container{display:flex;align-items:center;gap:.75rem}
 .sport-container,.owner-container,.nfl-controls{flex-direction:column;gap:.5rem}
-.sport-switcher,.owner-switcher,.season-switcher{display:flex;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:4px}
+.sport-switcher,.owner-switcher,.season-switcher{display:flex;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:6px;backdrop-filter:blur(10px)}
 .sport-switcher,.owner-switcher{gap:.5rem}
-.season-type-container label,.sort-container label{color:#b0b3b8;font:500 .9rem inherit}
-.season-btn{padding:.6rem 1rem;background:transparent;border:none;color:#b0b3b8;font:500 .85rem inherit;border-radius:8px;cursor:pointer;transition:all .3s;display:flex;align-items:center;gap:.5rem}
-.season-btn:hover{background:rgba(255,255,255,.08);color:#e4e6ea}
-.season-btn.active{background:linear-gradient(135deg,#2196f3,#1976d2);color:#fff;box-shadow:0 4px 15px rgba(33,150,243,.3)}
-.search-container{flex:1;max-width:300px}
-.search-input{width:100%;padding:.75rem 1rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:25px;color:#e4e6ea;font-size:1rem;transition:all .3s}
-.search-input:focus{outline:0;border-color:#2196f3;box-shadow:0 0 0 3px rgba(33,150,243,.1);background:rgba(255,255,255,.08)}
-.search-input::placeholder{color:#888}
-.sort-select{padding:.75rem 1rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e4e6ea;font:500 .9rem inherit;cursor:pointer;transition:all .3s;appearance:none}
-.sort-select:hover{background:rgba(255,255,255,.08);border-color:rgba(33,150,243,.3)}
-.sort-select:focus{outline:0;border-color:#2196f3;box-shadow:0 0 0 3px rgba(33,150,243,.1)}
-.sort-btn{padding:.5rem .75rem;background:rgba(33,150,243,.1);border:1px solid rgba(33,150,243,.3);border-radius:8px;color:#2196f3;cursor:pointer;transition:all .3s;font:bold 1.2rem inherit}
-.sort-btn:hover{background:rgba(33,150,243,.2)}
+.season-type-container label,.sort-container label{color:#b0b3b8;font:600 .9rem inherit;text-transform:uppercase;letter-spacing:.05em}
+.season-btn{padding:.8rem 1.2rem;background:transparent;border:none;color:#b0b3b8;font:500 .85rem inherit;border-radius:12px;cursor:pointer;transition:all .4s cubic-bezier(0.4,0,0.2,1);display:flex;align-items:center;gap:.5rem;position:relative;overflow:hidden}
+.season-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transition:left .6s}
+.season-btn:hover::before{left:100%}
+.season-btn:hover{background:rgba(255,255,255,.08);color:#e4e6ea;transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,.3)}
+.season-btn.active{background:linear-gradient(135deg,#2196f3,#1976d2,#8a2be2);color:#fff;box-shadow:0 8px 25px rgba(33,150,243,.4);transform:translateY(-2px)}
+.season-btn.active::before{display:none}
+.search-container{flex:1;max-width:320px;position:relative}
+.search-container::before{content:'🔍';position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:#888;font-size:.9rem;pointer-events:none}
+.search-input{width:100%;padding:.9rem 1rem .9rem 2.5rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:25px;color:#e4e6ea;font-size:1rem;transition:all .4s cubic-bezier(0.4,0,0.2,1);backdrop-filter:blur(10px)}
+.search-input:focus{outline:0;border-color:#2196f3;box-shadow:0 0 0 3px rgba(33,150,243,.1),0 8px 25px rgba(0,0,0,.2);background:rgba(255,255,255,.08);transform:translateY(-2px)}
+.search-input::placeholder{color:#888;transition:color .3s}
+.search-input:focus::placeholder{color:#aaa}
+.sort-select{padding:.9rem 1.2rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:16px;color:#e4e6ea;font:500 .9rem inherit;cursor:pointer;transition:all .4s cubic-bezier(0.4,0,0.2,1);appearance:none;backdrop-filter:blur(10px);position:relative}
+.sort-select::after{content:'▼';position:absolute;right:1rem;top:50%;transform:translateY(-50%);pointer-events:none;font-size:.8rem;color:#888}
+.sort-select:hover{background:rgba(255,255,255,.08);border-color:rgba(33,150,243,.3);transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,.2)}
+.sort-select:focus{outline:0;border-color:#2196f3;box-shadow:0 0 0 3px rgba(33,150,243,.1),0 8px 25px rgba(0,0,0,.2)}
+.sort-btn{padding:.6rem .9rem;background:rgba(33,150,243,.1);border:1px solid rgba(33,150,243,.3);border-radius:12px;color:#2196f3;cursor:pointer;transition:all .4s cubic-bezier(0.4,0,0.2,1);font:bold 1.2rem inherit;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.sort-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(33,150,243,.2),transparent);transition:left .6s}
+.sort-btn:hover::before{left:100%}
+.sort-btn:hover{background:rgba(33,150,243,.2);transform:translateY(-2px);box-shadow:0 8px 25px rgba(33,150,243,.3)}
 .sort-btn.desc{background:rgba(244,67,54,.1);border-color:rgba(244,67,54,.3);color:#f44336}
+.sort-btn.desc:hover{background:rgba(244,67,54,.2);box-shadow:0 8px 25px rgba(244,67,54,.3)}
+.sort-btn.desc::before{background:linear-gradient(90deg,transparent,rgba(244,67,54,.2),transparent)}
 .stats-overview,.fantasy-overview{max-width:1200px;margin:0 auto 2rem;padding:0 1rem}
-.stats-overview{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
-.stat-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:1.5rem;text-align:center;transition:transform .3s}
-.stat-card:hover{transform:translateY(-5px)}
-.stat-number{font:700 2rem inherit;color:#2196f3;margin-bottom:.5rem}
-.stat-label{font:500 .9rem inherit;color:#b0b3b8;text-transform:uppercase}
+.stats-overview{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem}
+.stat-card{background:rgba(255,255,255,.03);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:2rem;text-align:center;transition:all .4s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden;cursor:pointer}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#2196f3,#8a2be2,#2196f3);background-size:200% 100%;animation:gradientMove 3s ease infinite}
+.stat-card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(0,0,0,.3);background:rgba(255,255,255,.08)}
+.stat-card:hover::before{animation-speed:.5s}
+.stat-number{font:700 2.5rem inherit;background:linear-gradient(45deg,#2196f3,#64b5f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.8rem;text-shadow:0 0 20px rgba(33,150,243,.3)}
+.stat-label{font:600 .9rem inherit;color:#b0b3b8;text-transform:uppercase;letter-spacing:.1em;opacity:.9}
 .fantasy-team-card{background:rgba(0,0,0,.4);border-radius:12px;padding:1.5rem;border:1px solid rgba(255,255,255,.1)}
 .fantasy-team-card h3{color:#2196f3;margin:0 0 1rem;font-size:1.5rem}
 .team-stats{display:flex;gap:1rem;margin-bottom:1.5rem}
@@ -55,21 +72,25 @@
 .remove-btn-small{background:rgba(244,67,54,.2);color:#f44336;border:1px solid rgba(244,67,54,.3);border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .3s}
 .remove-btn-small:hover{background:rgba(244,67,54,.4)}
 .empty-team{text-align:center;padding:2rem;color:#888;font-style:italic}
-.table-container{max-width:1200px;margin:0 auto;padding:0 1rem;overflow-x:auto;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.1)}
+.table-container{max-width:1200px;margin:0 auto;padding:0 1rem;overflow-x:auto;border-radius:24px;background:rgba(0,0,0,.2);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);box-shadow:0 20px 40px rgba(0,0,0,.3)}
 .nhl-table,.nfl-table{width:100%;border-collapse:collapse;font-size:.95rem;background:transparent}
-.nhl-table thead tr{background:rgba(33,150,243,.1)}
-.nfl-table{background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden}
-.nhl-table th,.nfl-table th{padding:1rem .75rem;text-align:left;font:600 .85rem inherit;color:#e4e6ea;text-transform:uppercase;cursor:pointer;transition:all .3s;position:relative}
-.nhl-table th{border-bottom:2px solid rgba(33,150,243,.3)}
-.nfl-table th{border-bottom:2px solid rgba(255,152,0,.3);background:rgba(255,152,0,.1)}
-.nhl-table th:hover,.nhl-table th.active{background:rgba(33,150,243,.15);color:#2196f3}
-.nfl-table th:hover,.nfl-table th.active{background:rgba(255,152,0,.2);color:#ff9800}
+.nhl-table thead tr{background:rgba(33,150,243,.05);backdrop-filter:blur(10px)}
+.nfl-table{background:rgba(0,0,0,.1);border-radius:20px;overflow:hidden}
+.nhl-table th,.nfl-table th{padding:1.2rem .75rem;text-align:left;font:600 .85rem inherit;color:#e4e6ea;text-transform:uppercase;cursor:pointer;transition:all .4s cubic-bezier(0.4,0,0.2,1);position:relative;backdrop-filter:blur(10px)}
+.nhl-table th{border-bottom:2px solid rgba(33,150,243,.2);background:rgba(33,150,243,.03)}
+.nfl-table th{border-bottom:2px solid rgba(255,152,0,.2);background:rgba(255,152,0,.05)}
+.nhl-table th::before{content:'';position:absolute;bottom:0;left:0;right:0;height:0;background:linear-gradient(90deg,#2196f3,#8a2be2);transition:height .4s cubic-bezier(0.4,0,0.2,1)}
+.nfl-table th::before{content:'';position:absolute;bottom:0;left:0;right:0;height:0;background:linear-gradient(90deg,#ff9800,#f57c00);transition:height .4s cubic-bezier(0.4,0,0.2,1)}
+.nhl-table th:hover,.nhl-table th.active{background:rgba(33,150,243,.1);color:#2196f3;transform:translateY(-2px)}
+.nfl-table th:hover,.nfl-table th.active{background:rgba(255,152,0,.15);color:#ff9800;transform:translateY(-2px)}
+.nhl-table th:hover::before,.nhl-table th.active::before{height:3px}
+.nfl-table th:hover::before,.nfl-table th.active::before{height:3px}
 .sort-indicator{position:absolute;right:.5rem;top:50%;transform:translateY(-50%);color:#2196f3}
 .nfl-table .sort-indicator{color:#ff9800}
-.nhl-table tbody tr,.nfl-table tbody tr{transition:all .3s;border-bottom:1px solid rgba(255,255,255,.05)}
-.nhl-table tbody tr:nth-child(even),.nfl-table tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
-.nhl-table tbody tr:hover{background:rgba(33,150,243,.08)}
-.nfl-table tbody tr:hover{background:rgba(255,152,0,.08)}
+.nhl-table tbody tr,.nfl-table tbody tr{transition:all .4s cubic-bezier(0.4,0,0.2,1);border-bottom:1px solid rgba(255,255,255,.03);backdrop-filter:blur(5px)}
+.nhl-table tbody tr:nth-child(even),.nfl-table tbody tr:nth-child(even){background:rgba(255,255,255,.015)}
+.nhl-table tbody tr:hover{background:rgba(33,150,243,.08);transform:translateX(4px);box-shadow:inset 4px 0 0 #2196f3}
+.nfl-table tbody tr:hover{background:rgba(255,152,0,.08);transform:translateX(4px);box-shadow:inset 4px 0 0 #ff9800}
 .nhl-table tbody tr.top-performer{background:linear-gradient(90deg,rgba(76,175,80,.1),rgba(76,175,80,.05));border-left:4px solid #4caf50}
 .nhl-table tbody tr.bottom-performer{background:linear-gradient(90deg,rgba(244,67,54,.1),rgba(244,67,54,.05));border-left:4px solid #f44336}
 .nfl-table tbody tr.top-performer{background:linear-gradient(90deg,rgba(255,193,7,.1),rgba(255,193,7,.05));border-left:4px solid #ffc107}
@@ -99,5 +120,6 @@
 .loading-spinner{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem;color:#b0b3b8}
 .spinner{width:50px;height:50px;border:4px solid rgba(33,150,243,.1);border-left:4px solid #2196f3;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:1rem}
 @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
-@media(max-width:768px){.app-title{font-size:2rem}.controls-section{flex-direction:column;gap:1rem;align-items:stretch}.season-type-container,.season-switcher{justify-content:center}.season-btn{flex:1;justify-content:center}.search-container{max-width:100%}.stats-overview{grid-template-columns:1fr}.nhl-table{font-size:.85rem}.nhl-table th,.nhl-table td{padding:.75rem .5rem}.team-name{font-size:.8rem}}
-@media(max-width:480px){.app-title{font-size:1.5rem}.controls-section{padding:0 .5rem}.season-btn{padding:.5rem .75rem;font-size:.8rem}.nhl-table th,.nhl-table td{padding:.5rem .25rem}.progress-container{height:20px}.progress-text{font-size:.7rem}}
+@media(max-width:992px){.stats-overview{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}.controls-section{gap:1rem;padding:1.2rem}}
+@media(max-width:768px){.app-title{font-size:2.5rem}.app-header{padding:2rem 1rem}.controls-section{flex-direction:column;gap:1.2rem;align-items:stretch;padding:1.5rem 1rem}.season-type-container,.season-switcher{justify-content:center}.season-btn{flex:1;justify-content:center;padding:.7rem 1rem}.search-container{max-width:100%}.stats-overview{grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem}.stat-card{padding:1.5rem}.nhl-table,.nfl-table{font-size:.9rem}.nhl-table th,.nhl-table td,.nfl-table th,.nfl-table td{padding:.9rem .6rem}.team-name,.player-name{font-size:.85rem}.table-container{border-radius:20px;margin:0 .5rem;padding:0 .5rem}}
+@media(max-width:480px){.app-title{font-size:2rem}.app-header{padding:1.5rem .5rem}.controls-section{padding:1rem .5rem;gap:1rem;border-radius:16px}.season-btn{padding:.6rem .8rem;font-size:.8rem}.search-input{padding:.8rem 1rem .8rem 2.2rem}.sort-select{padding:.8rem 1rem}.stat-card{padding:1.2rem}.stat-number{font-size:2rem}.nhl-table th,.nhl-table td,.nfl-table th,.nfl-table td{padding:.7rem .4rem;font-size:.8rem}.progress-container{height:18px}.progress-text{font-size:.7rem}.table-container{margin:0 .25rem}}
