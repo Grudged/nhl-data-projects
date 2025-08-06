@@ -83,6 +83,9 @@ def create_nfl_table_dynamic(db_config, table_name, sample_data):
         postgres_type = get_postgres_type(field_value)
         field_definitions.append(f"{field_name} {postgres_type}")
     
+    # Add fantasy team assignment column
+    field_definitions.append("fantasy_team_owner VARCHAR(255) DEFAULT NULL")
+    
     create_table_query = f'''
     CREATE TABLE IF NOT EXISTS "{table_name}" (
         {",\n        ".join(field_definitions)},
