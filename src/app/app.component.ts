@@ -24,6 +24,7 @@ interface NFLPlayer {
   tackles: number;
   sacks: number;
   interceptions: number;
+  fantasy_team_owner?: string;
 }
 
 interface NHLDataResponse {
@@ -93,9 +94,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
-    if (this.selectedSport === 'nfl') {
-      this.loadFantasyTeams();
-    }
   }
 
   private loadData(): void {
@@ -148,26 +146,20 @@ export class AppComponent implements OnInit {
           touchdowns: Number(player.touchdowns),
           passing_yards: Number(player.passing_yards),
           rushing_yards: Number(player.rushing_yards),
-          receiving_yards: Number(player.receiving_yards)
+          receiving_yards: Number(player.receiving_yards),
+          fantasy_team_owner: player.fantasy_team_owner || undefined
         }));
+        
+        // Debug: Log players with team assignments
+        const playersWithTeams = convertedData.filter(p => p.fantasy_team_owner);
+        console.log('Players with fantasy team assignments:', playersWithTeams);
+        
         this.nflDataSubject.next(convertedData);
         this.isLoading = false;
       },
       error: (error) => {
         console.error('Error loading NFL data:', error);
         this.isLoading = false;
-      }
-    });
-  }
-  
-  private loadFantasyTeams(): void {
-    const apiUrl = `${this.baseApiUrl}/fantasy-teams`;
-    this.http.get<{fantasy_teams: FantasyTeam}>(apiUrl).subscribe({
-      next: (data) => {
-        this.fantasyTeams = data.fantasy_teams;
-      },
-      error: (error) => {
-        console.error('Error loading fantasy teams:', error);
       }
     });
   }
@@ -219,9 +211,14 @@ export class AppComponent implements OnInit {
       let aVal = a[this.sortBy as keyof NFLPlayer];
       let bVal = b[this.sortBy as keyof NFLPlayer];
       
-      if (typeof aVal === 'string') {
+      // Handle undefined values
+      if (aVal === undefined && bVal === undefined) return 0;
+      if (aVal === undefined) return 1;
+      if (bVal === undefined) return -1;
+      
+      if (typeof aVal === 'string' && typeof bVal === 'string') {
         aVal = aVal.toLowerCase();
-        bVal = (bVal as string).toLowerCase();
+        bVal = bVal.toLowerCase();
       }
       
       if (this.sortDirection === 'asc') {
@@ -277,7 +274,6 @@ export class AppComponent implements OnInit {
     this.searchTerm = '';
     if (sport === 'nfl') {
       this.sortBy = 'fantasy_points';
-      this.loadFantasyTeams();
     } else {
       this.sortBy = 'total_goals';
     }
@@ -289,24 +285,35 @@ export class AppComponent implements OnInit {
   }
   
   addPlayerToTeam(player: NFLPlayer): void {
-    if (!this.fantasyTeams[this.selectedOwner]) {
-      this.fantasyTeams[this.selectedOwner] = [];
-    }
-    if (!this.fantasyTeams[this.selectedOwner].find(p => p.name === player.name)) {
-      this.fantasyTeams[this.selectedOwner].push(player);
+    if (!player.fantasy_team_owner) {
+      // Update the player object locally
+      player.fantasy_team_owner = this.selectedOwner;
+      
+      // TODO: Make API call to update the database
+      // Example: this.http.put(`${this.baseApiUrl}/nfldata/assign-player`, { 
+      //   playerId: player.PlayerID, 
+      //   owner: this.selectedOwner 
+      // }).subscribe();
     }
   }
   
   removePlayerFromTeam(player: NFLPlayer): void {
-    const team = this.fantasyTeams[this.selectedOwner];
-    const index = team.findIndex(p => p.name === player.name);
-    if (index > -1) {
-      team.splice(index, 1);
+    if (player.fantasy_team_owner === this.selectedOwner) {
+      // Update the player object locally
+      player.fantasy_team_owner = undefined;
+      
+      // TODO: Make API call to update the database
+      // Example: this.http.put(`${this.baseApiUrl}/nfldata/unassign-player`, { 
+      //   playerId: player.PlayerID 
+      // }).subscribe();
     }
   }
   
   getFantasyTeam(): NFLPlayer[] {
-    return this.fantasyTeams[this.selectedOwner] || [];
+    const team = this.nflDataSubject.value.filter(player => player.fantasy_team_owner === this.selectedOwner);
+    console.log(`Fantasy team for ${this.selectedOwner}:`, team);
+    console.log(`Total NFL players loaded:`, this.nflDataSubject.value.length);
+    return team;
   }
 
   setSeasonType(seasonType: string): void {
@@ -325,10 +332,11 @@ export class AppComponent implements OnInit {
   }
 
   isPlayerInTeam(player: NFLPlayer): boolean {
-    return this.fantasyTeams[this.selectedOwner]?.find(p => p.name === player.name) !== undefined;
+    return player.fantasy_team_owner === this.selectedOwner;
   }
 
   getTotalFantasyPoints(): number {
     return this.getFantasyTeam().reduce((sum, p) => sum + p.fantasy_points, 0);
   }
+
 }

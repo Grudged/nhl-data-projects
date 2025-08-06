@@ -150,6 +150,43 @@
     </div>
   </div>
 
+  <!-- Selected Fantasy Team Overview -->
+  <div class="selected-fantasy-team" *ngIf="selectedSport === 'nfl'">
+    <div class="team-card">
+      <div class="team-header">
+        <h3>{{ selectedOwner | titlecase }}'s Fantasy Team</h3>
+        <div class="team-summary">
+          <span class="player-count">{{ getFantasyTeam().length }} Players</span>
+          <span class="total-points">{{ getTotalFantasyPoints() | number:'1.1-1' }} pts</span>
+        </div>
+      </div>
+      
+      <div class="team-players" *ngIf="getFantasyTeam().length > 0">
+        <div *ngFor="let player of getFantasyTeam()" class="team-player">
+          <div class="player-basic">
+            <strong>{{ player.name }}</strong>
+            <span class="player-team-pos">({{ player.team }} - {{ player.position }})</span>
+          </div>
+          <div class="player-stats">
+            <span class="fantasy-pts">{{ player.fantasy_points | number:'1.1-1' }} pts</span>
+            <span class="touchdowns" *ngIf="player.touchdowns > 0">{{ player.touchdowns }} TDs</span>
+            <div class="yards-info" *ngIf="player.passing_yards > 0 || player.rushing_yards > 0 || player.receiving_yards > 0">
+              <small *ngIf="player.passing_yards > 0">Pass: {{ player.passing_yards }}</small>
+              <small *ngIf="player.rushing_yards > 0">Rush: {{ player.rushing_yards }}</small>
+              <small *ngIf="player.receiving_yards > 0">Rec: {{ player.receiving_yards }}</small>
+            </div>
+          </div>
+          <button (click)="removePlayerFromTeam(player)" class="remove-btn-small">×</button>
+        </div>
+      </div>
+      
+      <div class="empty-team" *ngIf="getFantasyTeam().length === 0">
+        <p>No players assigned to {{ selectedOwner | titlecase }}</p>
+        <small>Add players from the table below</small>
+      </div>
+    </div>
+  </div>
+
   <!-- NHL Table -->
   <div class="table-container" *ngIf="selectedSport === 'nhl'">
     <table class="nhl-table">

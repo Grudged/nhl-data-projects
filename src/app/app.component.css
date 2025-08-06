@@ -36,6 +36,25 @@
 .player-info{display:flex;flex-direction:column;gap:.25rem}
 .player-info strong{color:#e4e6ea}
 .player-info small{color:#b0b3b8;font-size:.85rem}
+.selected-fantasy-team{max-width:1200px;margin:0 auto 2rem;padding:0 1rem}
+.team-card{background:rgba(0,0,0,.4);border-radius:12px;padding:1.5rem;border:1px solid rgba(255,255,255,.1)}
+.team-header{border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:1rem;margin-bottom:1rem}
+.team-header h3{color:#ff9800;margin:0 0 .5rem;font-size:1.3rem}
+.team-summary{display:flex;justify-content:space-between;align-items:center}
+.player-count{color:#b0b3b8;font-size:.9rem}
+.total-points{color:#ffc107;font-weight:600}
+.team-players{display:flex;flex-direction:column;gap:.75rem}
+.team-player{display:flex;justify-content:space-between;align-items:center;padding:.75rem;background:rgba(255,152,0,.1);border-radius:8px;border-left:3px solid #ff9800}
+.player-basic{display:flex;flex-direction:column;gap:.25rem;flex:1}
+.player-basic strong{color:#e4e6ea}
+.player-team-pos{color:#b0b3b8;font-size:.85rem}
+.player-stats{display:flex;flex-direction:column;align-items:flex-end;gap:.25rem;margin-right:.5rem}
+.fantasy-pts{color:#ffc107;font-weight:600;font-size:.9rem}
+.yards-info{display:flex;flex-direction:column;gap:.2rem}
+.yards-info small{color:#b0b3b8;font-size:.8rem}
+.remove-btn-small{background:rgba(244,67,54,.2);color:#f44336;border:1px solid rgba(244,67,54,.3);border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .3s}
+.remove-btn-small:hover{background:rgba(244,67,54,.4)}
+.empty-team{text-align:center;padding:2rem;color:#888;font-style:italic}
 .table-container{max-width:1200px;margin:0 auto;padding:0 1rem;overflow-x:auto;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.1)}
 .nhl-table,.nfl-table{width:100%;border-collapse:collapse;font-size:.95rem;background:transparent}
 .nhl-table thead tr{background:rgba(33,150,243,.1)}
