@@ -48,6 +48,17 @@
     flex-wrap: wrap;
 }
 
+.sport-container, .owner-container, .nfl-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sport-switcher, .owner-switcher {
+    display: flex;
+    gap: 0.5rem;
+}
+
 /* Season Type Selector */
 .season-type-container {
     display: flex;
@@ -335,6 +346,210 @@
 .goals {
     color: #2196f3;
     font-weight: 600;
+}
+
+/* Fantasy Team Overview */
+.fantasy-overview {
+    max-width: 1200px;
+    margin: 0 auto 2rem auto;
+    padding: 0 1rem;
+}
+
+.fantasy-team-card {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.fantasy-team-card h3 {
+    color: #2196f3;
+    margin: 0 0 1rem 0;
+    font-size: 1.5rem;
+}
+
+.team-stats {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.fantasy-roster h4 {
+    color: #e4e6ea;
+    margin: 0 0 1rem 0;
+    font-size: 1.2rem;
+}
+
+.roster-players {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.roster-player {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: rgba(33, 150, 243, 0.1);
+    border-radius: 8px;
+    border-left: 3px solid #2196f3;
+}
+
+.player-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.player-info strong {
+    color: #e4e6ea;
+}
+
+.player-info small {
+    color: #b0b3b8;
+    font-size: 0.85rem;
+}
+
+/* NFL Table Styles */
+.nfl-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nfl-table th {
+    padding: 1rem 0.75rem;
+    text-align: left;
+    font-weight: 600;
+    color: #e4e6ea;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+    border-bottom: 2px solid rgba(255, 152, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    background: rgba(255, 152, 0, 0.1);
+}
+
+.nfl-table th:hover {
+    background: rgba(255, 152, 0, 0.2);
+    color: #ff9800;
+}
+
+.nfl-table th.active {
+    background: rgba(255, 152, 0, 0.3);
+    color: #ff9800;
+}
+
+.nfl-table tbody tr {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nfl-table tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.nfl-table tbody tr:hover {
+    background: rgba(255, 152, 0, 0.08);
+    transform: scale(1.01);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.nfl-table tbody tr.top-performer {
+    background: linear-gradient(90deg, rgba(255, 193, 7, 0.1), rgba(255, 193, 7, 0.05));
+    border-left: 4px solid #ffc107;
+}
+
+.nfl-table tbody tr.on-team {
+    background: linear-gradient(90deg, rgba(76, 175, 80, 0.15), rgba(76, 175, 80, 0.05));
+    border-left: 4px solid #4caf50;
+}
+
+.nfl-table td {
+    padding: 1rem 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.player-cell {
+    font-weight: 600;
+    color: #e4e6ea;
+}
+
+.player-name {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background: rgba(255, 152, 0, 0.1);
+    border-radius: 6px;
+    border-left: 3px solid #ff9800;
+}
+
+.position-cell {
+    color: #9c27b0;
+    font-weight: 500;
+    text-align: center;
+}
+
+.fantasy-points {
+    color: #ffc107;
+    font-weight: 600;
+}
+
+.touchdowns {
+    color: #4caf50;
+    font-weight: 500;
+}
+
+.yards-cell {
+    font-size: 0.85rem;
+    color: #b0b3b8;
+}
+
+.action-cell {
+    text-align: center;
+}
+
+.add-btn, .remove-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.add-btn {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4caf50;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.add-btn:hover {
+    background: rgba(76, 175, 80, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.remove-btn {
+    background: rgba(244, 67, 54, 0.2);
+    color: #f44336;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.remove-btn:hover {
+    background: rgba(244, 67, 54, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
 }
 
 /* Progress Bar for Win Percentage */
