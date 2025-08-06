@@ -1,1 +1,230 @@
-/* Fantasy team specific styles */
+/* Fantasy Team Component Styles */
+.fantasy-team-container {
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  padding: 0 2rem;
+}
+
+.fantasy-team-header {
+  background: rgba(0,0,0,0.2);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px 16px 0 0;
+  padding: 1rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.fantasy-team-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #ff9800, #ffc107, #ff9800);
+  background-size: 200% 100%;
+  animation: gradientMove 3s ease infinite;
+}
+
+@keyframes gradientMove {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.fantasy-team-title {
+  font: 600 1.4rem 'Inter', system-ui, sans-serif;
+  background: linear-gradient(45deg, #ff9800, #ffc107);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.3rem;
+}
+
+.fantasy-team-subtitle {
+  font: 400 0.9rem 'Inter', system-ui, sans-serif;
+  color: #b0b3b8;
+  opacity: 0.8;
+}
+
+.fantasy-team-content {
+  background: rgba(0,0,0,0.2);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 0 0 16px 16px;
+  border-top: none;
+  padding: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.team-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.team-stat-card {
+  background: rgba(255,152,0,0.1);
+  border: 1px solid rgba(255,152,0,0.2);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.team-stat-card:hover {
+  background: rgba(255,152,0,0.15);
+  transform: translateY(-4px);
+}
+
+.team-stat-number {
+  font: 700 1.5rem 'Inter', system-ui, sans-serif;
+  color: #ffc107;
+  margin-bottom: 0.3rem;
+}
+
+.team-stat-label {
+  font: 600 0.8rem 'Inter', system-ui, sans-serif;
+  color: #b0b3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.team-players {
+  margin-top: 1.5rem;
+}
+
+.team-players-title {
+  font: 600 1.1rem 'Inter', system-ui, sans-serif;
+  color: #e4e6ea;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.players-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.8rem;
+}
+
+.player-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 1rem;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.player-card:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-2px);
+  border-color: rgba(255,152,0,0.3);
+}
+
+.player-name {
+  font: 600 1rem 'Inter', system-ui, sans-serif;
+  color: #e4e6ea;
+  margin-bottom: 0.4rem;
+}
+
+.player-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.player-position {
+  background: rgba(156,39,176,0.2);
+  color: #9c27b0;
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+  font: 600 0.8rem 'Inter', system-ui, sans-serif;
+  text-transform: uppercase;
+}
+
+.player-team {
+  color: #64b5f6;
+  font: 500 0.9rem 'Inter', system-ui, sans-serif;
+  text-transform: uppercase;
+}
+
+.player-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+}
+
+.player-stat {
+  text-align: center;
+}
+
+.player-stat-value {
+  font: 600 0.9rem 'Inter', system-ui, sans-serif;
+  color: #ffc107;
+}
+
+.player-stat-label {
+  font: 400 0.75rem 'Inter', system-ui, sans-serif;
+  color: #888;
+  text-transform: uppercase;
+}
+
+.remove-player-btn {
+  width: 100%;
+  padding: 0.6rem;
+  background: rgba(244,67,54,0.1);
+  color: #f44336;
+  border: 1px solid rgba(244,67,54,0.3);
+  border-radius: 6px;
+  cursor: pointer;
+  font: 600 0.8rem 'Inter', system-ui, sans-serif;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+
+.remove-player-btn:hover {
+  background: rgba(244,67,54,0.2);
+  transform: translateY(-2px);
+}
+
+.empty-team {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  color: #888;
+  font: 400 1rem 'Inter', system-ui, sans-serif;
+}
+
+.empty-team-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.8rem;
+  opacity: 0.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .fantasy-team-container {
+    padding: 0 1rem;
+  }
+  
+  .fantasy-team-header,
+  .fantasy-team-content {
+    padding: 1.5rem;
+  }
+  
+  .team-stats {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  
+  .players-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .fantasy-team-title {
+    font-size: 1.5rem;
+  }
+}

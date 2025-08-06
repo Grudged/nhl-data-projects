@@ -1,4 +1,129 @@
 /* Controls specific styles */
+.controls-section {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 1400px;
+  margin: 0 auto 2rem;
+  padding: 2rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+  background: rgba(0,0,0,0.2);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.sport-container, .owner-container, .nfl-controls, .season-type-container, .season-year-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  min-width: 200px;
+}
+
+.sport-container label, .owner-container label, .season-type-container label, .season-year-container label {
+  color: #b0b3b8;
+  font: 600 0.9rem 'Inter', system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.sport-switcher, .owner-switcher, .season-switcher, .season-year-switcher {
+  display: flex;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 8px;
+  backdrop-filter: blur(10px);
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.season-btn {
+  padding: 0.8rem 1.2rem;
+  background: transparent;
+  border: none;
+  color: #b0b3b8;
+  font: 500 0.85rem 'Inter', system-ui, sans-serif;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.season-btn:hover {
+  background: rgba(255,255,255,0.08);
+  color: #e4e6ea;
+  transform: translateY(-2px);
+}
+
+.season-btn.active {
+  background: linear-gradient(135deg, #2196f3, #1976d2);
+  color: #fff;
+  box-shadow: 0 8px 25px rgba(33,150,243,0.4);
+}
+
+.search-container {
+  flex: 1;
+  max-width: 350px;
+  min-width: 250px;
+  position: relative;
+}
+
+.search-container::before {
+  content: '🔍';
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  pointer-events: none;
+  font-size: 1.1rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 1rem 1rem 1rem 3rem !important;
+  background: rgba(255,255,255,0.03) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 25px !important;
+  color: #e4e6ea !important;
+  font-size: 1rem;
+  transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+.search-input:focus {
+  outline: 0;
+  border-color: #2196f3 !important;
+  box-shadow: 0 0 0 3px rgba(33,150,243,0.1) !important;
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.08) !important;
+}
+
+.search-input::placeholder {
+  color: #888 !important;
+}
+
+.sort-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  min-width: 180px;
+}
+
+.sort-container label {
+  color: #b0b3b8;
+  font: 600 0.9rem 'Inter', system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
 
 .sort-select {
   padding: 0.8rem 3rem 0.8rem 1.2rem !important;
@@ -9,11 +134,11 @@
   border: 1px solid rgba(255,255,255,0.1) !important;
   border-radius: 16px !important;
   color: #e4e6ea !important;
-  font: 500 0.85rem inherit !important;
+  font: 500 0.85rem 'Inter', system-ui, sans-serif !important;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
   appearance: none;
-  min-width: 160px;
+  min-width: 180px;
   backdrop-filter: blur(10px);
 }
 
@@ -36,4 +161,47 @@
   box-shadow: 0 0 0 3px rgba(33,150,243,0.1) !important;
   background-color: rgba(255,255,255,0.08) !important;
   transform: translateY(-2px);
+}
+
+.sort-btn {
+  padding: 0.7rem 1rem;
+  background: rgba(33,150,243,0.1);
+  border: 1px solid rgba(33,150,243,0.3);
+  border-radius: 12px;
+  color: #2196f3;
+  cursor: pointer;
+  transition: all 0.3s;
+  font: bold 1.2rem 'Inter', system-ui, sans-serif;
+  margin-top: 0.5rem;
+}
+
+.sort-btn:hover {
+  background: rgba(33,150,243,0.2);
+  transform: translateY(-2px);
+}
+
+.sort-btn.desc {
+  background: rgba(244,67,54,0.1);
+  border-color: rgba(244,67,54,0.3);
+  color: #f44336;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .controls-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+  
+  .sport-container, .owner-container, .season-type-container, .season-year-container, .search-container, .sort-container {
+    min-width: auto;
+    width: 100%;
+    max-width: 350px;
+  }
+  
+  .sport-switcher, .owner-switcher, .season-switcher, .season-year-switcher {
+    justify-content: center;
+  }
 }

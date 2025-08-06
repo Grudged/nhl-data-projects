@@ -1,1 +1,54 @@
 /* Header specific styles */
+.app-header {
+  text-align: center;
+  padding: 1rem 2rem;
+  backdrop-filter: blur(20px);
+  background: #1F2124;
+  border-bottom: 4px solid #1ABC9C;
+  color: #E1E2E5;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.app-header::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #64b5f6, #2196f3, #8a2be2, transparent);
+  animation: shimmer 4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+}
+
+.app-title {
+  font: 700 3.5rem 'Orbitron', sans-serif;
+  background: linear-gradient(45deg, #64b5f6, #2196f3, #8a2be2);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 1rem 0;
+  animation: gradientMove 4s ease-in-out infinite;
+  text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+@keyframes gradientMove {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.app-subtitle {
+  font: 400 1.3rem 'Inter', system-ui, sans-serif;
+  color: #b0b3b8;
+  margin: 0;
+  opacity: 0.9;
+  letter-spacing: 0.5px;
+}

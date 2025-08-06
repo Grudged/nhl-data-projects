@@ -1,1 +1,208 @@
-/* NFL table specific styles */
+/* NFL Table Component Styles */
+.table-container {
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+  overflow-x: auto;
+  border-radius: 24px;
+  background: rgba(0,0,0,0.2);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.nfl-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  background: transparent;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.nfl-table thead tr {
+  background: rgba(255,152,0,0.08);
+  backdrop-filter: blur(10px);
+}
+
+.nfl-table th {
+  padding: 1.5rem 1rem;
+  text-align: left;
+  font: 600 0.9rem 'Inter', system-ui, sans-serif;
+  color: #e4e6ea;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  border-bottom: 2px solid rgba(255,152,0,0.3);
+  background: rgba(255,152,0,0.05);
+}
+
+.nfl-table th:hover,
+.nfl-table th.active {
+  background: rgba(255,152,0,0.15);
+  color: #ff9800;
+  transform: translateY(-2px);
+}
+
+.nfl-table th.sortable::after {
+  content: '↕';
+  position: absolute;
+  right: 0.5rem;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+
+.nfl-table th.sortable:hover::after {
+  opacity: 1;
+}
+
+.nfl-table th.sort-asc::after {
+  content: '↑';
+  color: #ff9800;
+  opacity: 1;
+}
+
+.nfl-table th.sort-desc::after {
+  content: '↓';
+  color: #ff9800;
+  opacity: 1;
+}
+
+.nfl-table tbody tr {
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.nfl-table tbody tr:hover {
+  background: rgba(255,152,0,0.1);
+  transform: translateX(8px);
+  box-shadow: inset 4px 0 0 #ff9800;
+}
+
+.nfl-table td {
+  padding: 1.2rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  color: #e4e6ea;
+  transition: color 0.3s;
+}
+
+.player-name {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  background: rgba(255,152,0,0.15);
+  border-radius: 8px;
+  border-left: 4px solid #ff9800;
+  font-weight: 600;
+  color: #e4e6ea;
+}
+
+.number-cell {
+  text-align: center;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.fantasy-points {
+  color: #ffc107;
+  font-weight: 600;
+}
+
+.position-cell {
+  color: #9c27b0;
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.touchdowns {
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.team-cell {
+  color: #64b5f6;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.add-btn, .remove-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.3s;
+  text-transform: uppercase;
+}
+
+.add-btn {
+  background: rgba(76,175,80,0.2);
+  color: #4caf50;
+  border: 1px solid rgba(76,175,80,0.3);
+}
+
+.add-btn:hover {
+  background: rgba(76,175,80,0.3);
+  transform: translateY(-2px);
+}
+
+.remove-btn {
+  background: rgba(244,67,54,0.2);
+  color: #f44336;
+  border: 1px solid rgba(244,67,54,0.3);
+}
+
+.remove-btn:hover {
+  background: rgba(244,67,54,0.3);
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .table-container {
+    margin: 1rem auto;
+    padding: 0 1rem;
+    border-radius: 16px;
+  }
+  
+  .nfl-table th,
+  .nfl-table td {
+    padding: 1rem 0.6rem;
+    font-size: 0.9rem;
+  }
+  
+  .player-name {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  
+  .add-btn, .remove-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nfl-table th,
+  .nfl-table td {
+    padding: 0.8rem 0.4rem;
+    font-size: 0.8rem;
+  }
+  
+  .nfl-table th {
+    font-size: 0.75rem;
+  }
+}
