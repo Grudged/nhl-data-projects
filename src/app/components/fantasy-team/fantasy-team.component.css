@@ -194,6 +194,191 @@
   opacity: 0.7;
 }
 
+/* Special Poop Button Styles */
+.poop-button-container {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.poop-button {
+  background: linear-gradient(135deg, #8B4513, #D2691E, #FF6347);
+  color: #fff;
+  border: 3px solid #FFD700;
+  border-radius: 25px;
+  padding: 1rem 2rem;
+  font: 700 1.1rem 'Inter', system-ui, sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  animation: bounce 2s infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.poop-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+@keyframes shimmer {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.poop-button:hover {
+  transform: scale(1.1) rotateZ(5deg);
+  box-shadow: 0 12px 30px rgba(255,215,0,0.5);
+  animation: wiggle 0.5s ease-in-out infinite;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: scale(1.1) rotateZ(5deg); }
+  25% { transform: scale(1.1) rotateZ(-5deg); }
+  75% { transform: scale(1.1) rotateZ(5deg); }
+}
+
+.poop-button:active {
+  transform: scale(0.95);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Dialog Styles */
+.dialog-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0,0,0,0.9) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  z-index: 2147483647 !important;
+}
+
+.dialog-content {
+  background: linear-gradient(135deg, #FF1493, #FF6347, #FFD700) !important;
+  border: 5px solid #FF0000 !important;
+  border-radius: 30px !important;
+  padding: 0 !important;
+  max-width: 600px !important;
+  width: 90% !important;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5) !important;
+  animation: popIn 0.5s ease-out !important;
+  overflow: hidden !important;
+  position: relative !important;
+  z-index: 2147483647 !important;
+}
+
+@keyframes popIn {
+  0% { 
+    transform: scale(0.3) rotate(-15deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1) rotate(5deg);
+  }
+  100% { 
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.dialog-header {
+  background: linear-gradient(135deg, #8B0000, #FF4500);
+  padding: 1.5rem;
+  text-align: center;
+  border-bottom: 3px solid #FFD700;
+}
+
+.dialog-header h2 {
+  color: #FFD700;
+  font: 900 1.5rem 'Inter', system-ui, sans-serif;
+  margin: 0;
+  text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.dialog-body {
+  padding: 2rem;
+  text-align: center;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+}
+
+.poop-question h1 {
+  color: #8B0000;
+  font: 900 2.5rem 'Inter', system-ui, sans-serif;
+  margin: 0 0 1rem 0;
+  text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+  animation: shake 0.5s ease-in-out infinite;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.emoji-parade {
+  font-size: 2rem;
+  margin: 1rem 0;
+  animation: rainbowText 2s ease-in-out infinite;
+}
+
+@keyframes rainbowText {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+.dialog-footer {
+  padding: 1.5rem;
+  text-align: center;
+  background: linear-gradient(135deg, #FF4500, #FF1493);
+  border-top: 3px solid #FFD700;
+}
+
+.close-button {
+  background: linear-gradient(135deg, #32CD32, #228B22);
+  color: #fff;
+  border: 3px solid #FFD700;
+  border-radius: 20px;
+  padding: 1rem 2rem;
+  font: 700 1rem 'Inter', system-ui, sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.close-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(50,205,50,0.4);
+  animation: buttonGlow 0.5s ease-in-out infinite;
+}
+
+@keyframes buttonGlow {
+  0%, 100% { box-shadow: 0 8px 20px rgba(50,205,50,0.4); }
+  50% { box-shadow: 0 8px 25px rgba(255,215,0,0.6); }
+}
+
 .fantasy-team-header {
   background: rgba(0,0,0,0.2);
   backdrop-filter: blur(20px);

@@ -6,6 +6,13 @@
         <span class="player-count">{{ fantasyTeam.length }} Players</span>
         <span class="total-points">{{ getTotalFantasyPoints() | number:'1.1-1' }} pts</span>
       </div>
+      
+      <!-- Special Poop Button for specific owners -->
+      <div *ngIf="selectedOwner === 'BlevelandClowns' || selectedOwner === 'Team 610jason'" class="poop-button-container">
+        <button (click)="showPoopDialog()" class="poop-button">
+          💩 Special Button 💩
+        </button>
+      </div>
     </div>
     
     <div class="team-players" *ngIf="fantasyTeam.length > 0">
