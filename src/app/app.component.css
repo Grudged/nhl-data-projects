@@ -1,722 +1,88 @@
-/* Global App Styles */
-.app-container {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 50%, #2d1b3d 100%);
-    color: #e4e6ea;
-    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-    padding: 0;
-    margin: 0;
-}
-
-/* Header Styles */
-.app-header {
-    text-align: center;
-    padding: 2rem 1rem;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 2rem;
-}
-
-.app-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    background: linear-gradient(45deg, #64b5f6, #42a5f5, #2196f3);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin: 0;
-    text-shadow: 0 0 30px rgba(33, 150, 243, 0.3);
-}
-
-.app-subtitle {
-    font-size: 1.1rem;
-    color: #b0b3b8;
-    margin: 0.5rem 0 0 0;
-    font-weight: 300;
-}
-
-/* Controls Section */
-.controls-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto 2rem auto;
-    padding: 0 1rem;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.sport-container, .owner-container, .nfl-controls {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.sport-switcher, .owner-switcher {
-    display: flex;
-    gap: 0.5rem;
-}
-
-/* Season Type Selector */
-.season-type-container {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.season-type-container label {
-    color: #b0b3b8;
-    font-weight: 500;
-    font-size: 0.9rem;
-}
-
-.season-switcher {
-    display: flex;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-}
-
-.season-btn {
-    padding: 0.6rem 1rem;
-    background: transparent;
-    border: none;
-    color: #b0b3b8;
-    font-size: 0.85rem;
-    font-weight: 500;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    white-space: nowrap;
-}
-
-.season-btn:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: #e4e6ea;
-    transform: translateY(-1px);
-}
-
-.season-btn.active {
-    background: linear-gradient(135deg, #2196f3, #1976d2);
-    color: white;
-    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
-    transform: translateY(-1px);
-}
-
-.season-btn.active:hover {
-    background: linear-gradient(135deg, #1976d2, #1565c0);
-    box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
-}
-
-.search-container {
-    flex: 1;
-    max-width: 300px;
-}
-
-.search-input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 25px;
-    color: #e4e6ea;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-
-.search-input:focus {
-    outline: none;
-    border-color: #2196f3;
-    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
-    background: rgba(255, 255, 255, 0.08);
-}
-
-.search-input::placeholder {
-    color: #888;
-}
-
-.sort-container {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.sort-container label {
-    color: #b0b3b8;
-    font-weight: 500;
-}
-
-.sort-select {
-    padding: 0.75rem 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    color: #e4e6ea;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    min-width: 150px;
-    appearance: none;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="%23e4e6ea" d="M6 8L2 4h8L6 8z"/></svg>');
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    padding-right: 2.5rem;
-}
-
-.sort-select:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(33, 150, 243, 0.3);
-    transform: translateY(-1px);
-}
-
-.sort-select:focus {
-    outline: none;
-    border-color: #2196f3;
-    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
-    background: rgba(255, 255, 255, 0.08);
-}
-
-.sort-select option {
-    background: #1a1f2e;
-    color: #e4e6ea;
-    padding: 0.5rem;
-}
-
-.sort-btn {
-    padding: 0.5rem 0.75rem;
-    background: rgba(33, 150, 243, 0.1);
-    border: 1px solid rgba(33, 150, 243, 0.3);
-    border-radius: 8px;
-    color: #2196f3;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-.sort-btn:hover {
-    background: rgba(33, 150, 243, 0.2);
-    transform: translateY(-1px);
-}
-
-.sort-btn.desc {
-    background: rgba(244, 67, 54, 0.1);
-    border-color: rgba(244, 67, 54, 0.3);
-    color: #f44336;
-}
-
-/* Stats Overview */
-.stats-overview {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    max-width: 1200px;
-    margin: 0 auto 2rem auto;
-    padding: 0 1rem;
-}
-
-.stat-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 1.5rem;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.stat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.stat-number {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #2196f3;
-    margin-bottom: 0.5rem;
-}
-
-.stat-label {
-    font-size: 0.9rem;
-    color: #b0b3b8;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 500;
-}
-
-/* Table Container */
-.table-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-    overflow-x: auto;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Enhanced Table Styles */
-.nhl-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.95rem;
-    background: transparent;
-}
-
-.nhl-table thead tr {
-    background: rgba(33, 150, 243, 0.1);
-}
-
-.nhl-table th {
-    padding: 1rem 0.75rem;
-    text-align: left;
-    font-weight: 600;
-    color: #e4e6ea;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 0.85rem;
-    border-bottom: 2px solid rgba(33, 150, 243, 0.3);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.nhl-table th:hover {
-    background: rgba(33, 150, 243, 0.15);
-    color: #2196f3;
-}
-
-.nhl-table th.active {
-    background: rgba(33, 150, 243, 0.2);
-    color: #2196f3;
-}
-
-.sort-indicator {
-    position: absolute;
-    right: 0.5rem;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1rem;
-    color: #2196f3;
-}
-
-.nhl-table tbody tr {
-    transition: all 0.3s ease;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.nhl-table tbody tr:nth-child(even) {
-    background: rgba(255, 255, 255, 0.02);
-}
-
-.nhl-table tbody tr:hover {
-    background: rgba(33, 150, 243, 0.08);
-    transform: scale(1.01);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.nhl-table tbody tr.top-performer {
-    background: linear-gradient(90deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05));
-    border-left: 4px solid #4caf50;
-}
-
-.nhl-table tbody tr.bottom-performer {
-    background: linear-gradient(90deg, rgba(244, 67, 54, 0.1), rgba(244, 67, 54, 0.05));
-    border-left: 4px solid #f44336;
-}
-
-.nhl-table td {
-    padding: 1rem 0.75rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.team-cell {
-    font-weight: 600;
-    color: #e4e6ea;
-}
-
-.team-name {
-    display: inline-block;
-    padding: 0.25rem 0.5rem;
-    background: rgba(33, 150, 243, 0.1);
-    border-radius: 6px;
-    border-left: 3px solid #2196f3;
-}
-
-.number-cell {
-    text-align: center;
-    font-weight: 500;
-    font-variant-numeric: tabular-nums;
-}
-
-.wins {
-    color: #4caf50;
-}
-
-.losses {
-    color: #f44336;
-}
-
-.remaining {
-    color: #ff9800;
-}
-
-.goals {
-    color: #2196f3;
-    font-weight: 600;
-}
-
-/* Fantasy Team Overview */
-.fantasy-overview {
-    max-width: 1200px;
-    margin: 0 auto 2rem auto;
-    padding: 0 1rem;
-}
-
-.fantasy-team-card {
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 12px;
-    padding: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-}
-
-.fantasy-team-card h3 {
-    color: #2196f3;
-    margin: 0 0 1rem 0;
-    font-size: 1.5rem;
-}
-
-.team-stats {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.fantasy-roster h4 {
-    color: #e4e6ea;
-    margin: 0 0 1rem 0;
-    font-size: 1.2rem;
-}
-
-.roster-players {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.roster-player {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem;
-    background: rgba(33, 150, 243, 0.1);
-    border-radius: 8px;
-    border-left: 3px solid #2196f3;
-}
-
-.player-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
-.player-info strong {
-    color: #e4e6ea;
-}
-
-.player-info small {
-    color: #b0b3b8;
-    font-size: 0.85rem;
-}
-
-/* NFL Table Styles */
-.nfl-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 12px;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.nfl-table th {
-    padding: 1rem 0.75rem;
-    text-align: left;
-    font-weight: 600;
-    color: #e4e6ea;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 0.85rem;
-    border-bottom: 2px solid rgba(255, 152, 0, 0.3);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    background: rgba(255, 152, 0, 0.1);
-}
-
-.nfl-table th:hover {
-    background: rgba(255, 152, 0, 0.2);
-    color: #ff9800;
-}
-
-.nfl-table th.active {
-    background: rgba(255, 152, 0, 0.3);
-    color: #ff9800;
-}
-
-.nfl-table tbody tr {
-    transition: all 0.3s ease;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.nfl-table tbody tr:nth-child(even) {
-    background: rgba(255, 255, 255, 0.02);
-}
-
-.nfl-table tbody tr:hover {
-    background: rgba(255, 152, 0, 0.08);
-    transform: scale(1.01);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.nfl-table tbody tr.top-performer {
-    background: linear-gradient(90deg, rgba(255, 193, 7, 0.1), rgba(255, 193, 7, 0.05));
-    border-left: 4px solid #ffc107;
-}
-
-.nfl-table tbody tr.on-team {
-    background: linear-gradient(90deg, rgba(76, 175, 80, 0.15), rgba(76, 175, 80, 0.05));
-    border-left: 4px solid #4caf50;
-}
-
-.nfl-table td {
-    padding: 1rem 0.75rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.player-cell {
-    font-weight: 600;
-    color: #e4e6ea;
-}
-
-.player-name {
-    display: inline-block;
-    padding: 0.25rem 0.5rem;
-    background: rgba(255, 152, 0, 0.1);
-    border-radius: 6px;
-    border-left: 3px solid #ff9800;
-}
-
-.position-cell {
-    color: #9c27b0;
-    font-weight: 500;
-    text-align: center;
-}
-
-.fantasy-points {
-    color: #ffc107;
-    font-weight: 600;
-}
-
-.touchdowns {
-    color: #4caf50;
-    font-weight: 500;
-}
-
-.yards-cell {
-    font-size: 0.85rem;
-    color: #b0b3b8;
-}
-
-.action-cell {
-    text-align: center;
-}
-
-.add-btn, .remove-btn {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-}
-
-.add-btn {
-    background: rgba(76, 175, 80, 0.2);
-    color: #4caf50;
-    border: 1px solid rgba(76, 175, 80, 0.3);
-}
-
-.add-btn:hover {
-    background: rgba(76, 175, 80, 0.3);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
-}
-
-.remove-btn {
-    background: rgba(244, 67, 54, 0.2);
-    color: #f44336;
-    border: 1px solid rgba(244, 67, 54, 0.3);
-}
-
-.remove-btn:hover {
-    background: rgba(244, 67, 54, 0.3);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
-}
-
-/* Progress Bar for Win Percentage */
-.progress-container {
-    width: 100%;
-    height: 24px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    overflow: hidden;
-    position: relative;
-}
-
-.progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, #4caf50, #8bc34a);
-    border-radius: 12px;
-    transition: width 0.8s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 50px;
-}
-
-.progress-text {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: white;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-/* Loading Spinner */
-.loading-spinner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 4rem;
-    color: #b0b3b8;
-}
-
-.spinner {
-    width: 50px;
-    height: 50px;
-    border: 4px solid rgba(33, 150, 243, 0.1);
-    border-left: 4px solid #2196f3;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-bottom: 1rem;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .app-title {
-        font-size: 2rem;
-    }
-    
-    .controls-section {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: stretch;
-    }
-    
-    .season-type-container {
-        justify-content: center;
-    }
-    
-    .season-switcher {
-        justify-content: center;
-    }
-    
-    .season-btn {
-        flex: 1;
-        justify-content: center;
-    }
-    
-    .search-container {
-        max-width: 100%;
-    }
-    
-    .stats-overview {
-        grid-template-columns: 1fr;
-    }
-    
-    .nhl-table {
-        font-size: 0.85rem;
-    }
-    
-    .nhl-table th,
-    .nhl-table td {
-        padding: 0.75rem 0.5rem;
-    }
-    
-    .team-name {
-        font-size: 0.8rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .app-title {
-        font-size: 1.5rem;
-    }
-    
-    .controls-section {
-        padding: 0 0.5rem;
-    }
-    
-    .season-btn {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.8rem;
-    }
-    
-    .nhl-table th,
-    .nhl-table td {
-        padding: 0.5rem 0.25rem;
-    }
-    
-    .progress-container {
-        height: 20px;
-    }
-    
-    .progress-text {
-        font-size: 0.7rem;
-    }
-}
-
-/* Season Type Loading Animation */
-.season-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-.table-container.loading {
-    opacity: 0.7;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
+.app-container{min-height:100vh;background:linear-gradient(135deg,#0f1419 0%,#1a1f2e 50%,#2d1b3d 100%);color:#e4e6ea;font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;margin:0;padding:0}
+.app-header{text-align:center;padding:2rem 1rem;background:rgba(0,0,0,.3);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:2rem}
+.app-title{font:700 2.5rem/1 inherit;background:linear-gradient(45deg,#64b5f6,#42a5f5,#2196f3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0;text-shadow:0 0 30px rgba(33,150,243,.3)}
+.app-subtitle{font:300 1.1rem inherit;color:#b0b3b8;margin:.5rem 0 0}
+.controls-section{display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto 2rem;padding:0 1rem;gap:1rem;flex-wrap:wrap}
+.sport-container,.owner-container,.nfl-controls,.season-type-container{display:flex;align-items:center;gap:.75rem}
+.sport-container,.owner-container,.nfl-controls{flex-direction:column;gap:.5rem}
+.sport-switcher,.owner-switcher,.season-switcher{display:flex;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:4px;backdrop-filter:blur(10px)}
+.sport-switcher,.owner-switcher{gap:.5rem}
+.season-type-container label,.sort-container label{color:#b0b3b8;font:500 .9rem inherit}
+.season-btn{padding:.6rem 1rem;background:transparent;border:none;color:#b0b3b8;font:500 .85rem inherit;border-radius:8px;cursor:pointer;transition:all .3s ease;display:flex;align-items:center;gap:.5rem;white-space:nowrap}
+.season-btn:hover{background:rgba(255,255,255,.08);color:#e4e6ea;transform:translateY(-1px)}
+.season-btn.active{background:linear-gradient(135deg,#2196f3,#1976d2);color:white;box-shadow:0 4px 15px rgba(33,150,243,.3);transform:translateY(-1px)}
+.search-container{flex:1;max-width:300px}
+.search-input{width:100%;padding:.75rem 1rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:25px;color:#e4e6ea;font-size:1rem;transition:all .3s ease}
+.search-input:focus{outline:none;border-color:#2196f3;box-shadow:0 0 0 3px rgba(33,150,243,.1);background:rgba(255,255,255,.08)}
+.search-input::placeholder{color:#888}
+.sort-container{display:flex;align-items:center;gap:.5rem}
+.sort-select{padding:.75rem 2.5rem .75rem 1rem;background:rgba(255,255,255,.05) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="%23e4e6ea" d="M6 8L2 4h8L6 8z"/></svg>') no-repeat right 1rem center;border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#e4e6ea;font:500 .9rem inherit;cursor:pointer;transition:all .3s ease;backdrop-filter:blur(10px);min-width:150px;appearance:none}
+.sort-select:hover{background-color:rgba(255,255,255,.08);border-color:rgba(33,150,243,.3);transform:translateY(-1px)}
+.sort-select:focus{outline:none;border-color:#2196f3;box-shadow:0 0 0 3px rgba(33,150,243,.1);background-color:rgba(255,255,255,.08)}
+.sort-select option{background:#1a1f2e;color:#e4e6ea;padding:.5rem}
+.sort-btn{padding:.5rem .75rem;background:rgba(33,150,243,.1);border:1px solid rgba(33,150,243,.3);border-radius:8px;color:#2196f3;cursor:pointer;transition:all .3s ease;font:bold 1.2rem inherit}
+.sort-btn:hover{background:rgba(33,150,243,.2);transform:translateY(-1px)}
+.sort-btn.desc{background:rgba(244,67,54,.1);border-color:rgba(244,67,54,.3);color:#f44336}
+.stats-overview,.fantasy-overview{max-width:1200px;margin:0 auto 2rem;padding:0 1rem}
+.stats-overview{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.stat-card{background:rgba(255,255,255,.05);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:1.5rem;text-align:center;transition:transform .3s ease,box-shadow .3s ease}
+.stat-card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.stat-number{font:700 2rem inherit;color:#2196f3;margin-bottom:.5rem}
+.stat-label{font:500 .9rem inherit;color:#b0b3b8;text-transform:uppercase;letter-spacing:1px}
+.fantasy-team-card{background:rgba(0,0,0,.4);border-radius:12px;padding:1.5rem;border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(10px)}
+.fantasy-team-card h3{color:#2196f3;margin:0 0 1rem;font-size:1.5rem}
+.team-stats{display:flex;gap:1rem;margin-bottom:1.5rem}
+.fantasy-roster h4{color:#e4e6ea;margin:0 0 1rem;font-size:1.2rem}
+.roster-players{display:flex;flex-direction:column;gap:.5rem}
+.roster-player{display:flex;justify-content:space-between;align-items:center;padding:.75rem;background:rgba(33,150,243,.1);border-radius:8px;border-left:3px solid #2196f3}
+.player-info{display:flex;flex-direction:column;gap:.25rem}
+.player-info strong{color:#e4e6ea}
+.player-info small{color:#b0b3b8;font-size:.85rem}
+.table-container{max-width:1200px;margin:0 auto;padding:0 1rem;overflow-x:auto;border-radius:16px;background:rgba(255,255,255,.02);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1)}
+.nhl-table,.nfl-table{width:100%;border-collapse:collapse;font-size:.95rem;background:transparent}
+.nhl-table thead tr{background:rgba(33,150,243,.1)}
+.nfl-table{background:rgba(0,0,0,.3);border-radius:12px;overflow:hidden;backdrop-filter:blur(10px);box-shadow:0 8px 32px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.1)}
+.nhl-table th,.nfl-table th{padding:1rem .75rem;text-align:left;font:600 .85rem inherit;color:#e4e6ea;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;transition:all .3s ease;position:relative}
+.nhl-table th{border-bottom:2px solid rgba(33,150,243,.3)}
+.nfl-table th{border-bottom:2px solid rgba(255,152,0,.3);background:rgba(255,152,0,.1)}
+.nhl-table th:hover,.nhl-table th.active{background:rgba(33,150,243,.15);color:#2196f3}
+.nhl-table th.active{background:rgba(33,150,243,.2)}
+.nfl-table th:hover,.nfl-table th.active{background:rgba(255,152,0,.2);color:#ff9800}
+.nfl-table th.active{background:rgba(255,152,0,.3)}
+.sort-indicator{position:absolute;right:.5rem;top:50%;transform:translateY(-50%);font-size:1rem;color:#2196f3}
+.nfl-table .sort-indicator{color:#ff9800}
+.nhl-table tbody tr,.nfl-table tbody tr{transition:all .3s ease;border-bottom:1px solid rgba(255,255,255,.05)}
+.nhl-table tbody tr:nth-child(even),.nfl-table tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
+.nhl-table tbody tr:hover{background:rgba(33,150,243,.08);transform:scale(1.01);box-shadow:0 4px 20px rgba(0,0,0,.1)}
+.nfl-table tbody tr:hover{background:rgba(255,152,0,.08);transform:scale(1.01);box-shadow:0 4px 20px rgba(0,0,0,.1)}
+.nhl-table tbody tr.top-performer{background:linear-gradient(90deg,rgba(76,175,80,.1),rgba(76,175,80,.05));border-left:4px solid #4caf50}
+.nhl-table tbody tr.bottom-performer{background:linear-gradient(90deg,rgba(244,67,54,.1),rgba(244,67,54,.05));border-left:4px solid #f44336}
+.nfl-table tbody tr.top-performer{background:linear-gradient(90deg,rgba(255,193,7,.1),rgba(255,193,7,.05));border-left:4px solid #ffc107}
+.nfl-table tbody tr.on-team{background:linear-gradient(90deg,rgba(76,175,80,.15),rgba(76,175,80,.05));border-left:4px solid #4caf50}
+.nhl-table td,.nfl-table td{padding:1rem .75rem;border-bottom:1px solid rgba(255,255,255,.05)}
+.team-cell,.player-cell{font-weight:600;color:#e4e6ea}
+.team-name{display:inline-block;padding:.25rem .5rem;background:rgba(33,150,243,.1);border-radius:6px;border-left:3px solid #2196f3}
+.player-name{display:inline-block;padding:.25rem .5rem;background:rgba(255,152,0,.1);border-radius:6px;border-left:3px solid #ff9800}
+.number-cell{text-align:center;font-weight:500;font-variant-numeric:tabular-nums}
+.wins{color:#4caf50}
+.losses{color:#f44336}
+.remaining{color:#ff9800}
+.goals{color:#2196f3;font-weight:600}
+.position-cell{color:#9c27b0;font-weight:500;text-align:center}
+.fantasy-points{color:#ffc107;font-weight:600}
+.touchdowns{color:#4caf50;font-weight:500}
+.yards-cell{font-size:.85rem;color:#b0b3b8}
+.action-cell{text-align:center}
+.add-btn,.remove-btn{padding:.5rem 1rem;border:none;border-radius:6px;cursor:pointer;font:500 .85rem inherit;transition:all .3s ease;backdrop-filter:blur(10px)}
+.add-btn{background:rgba(76,175,80,.2);color:#4caf50;border:1px solid rgba(76,175,80,.3)}
+.add-btn:hover{background:rgba(76,175,80,.3);transform:translateY(-2px);box-shadow:0 4px 12px rgba(76,175,80,.3)}
+.remove-btn{background:rgba(244,67,54,.2);color:#f44336;border:1px solid rgba(244,67,54,.3)}
+.remove-btn:hover{background:rgba(244,67,54,.3);transform:translateY(-2px);box-shadow:0 4px 12px rgba(244,67,54,.3)}
+.progress-container{width:100%;height:24px;background:rgba(255,255,255,.1);border-radius:12px;overflow:hidden;position:relative}
+.progress-bar{height:100%;background:linear-gradient(90deg,#4caf50,#8bc34a);border-radius:12px;transition:width .8s ease;display:flex;align-items:center;justify-content:center;min-width:50px}
+.progress-text{font:600 .75rem inherit;color:white;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.loading-spinner{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem;color:#b0b3b8}
+.spinner{width:50px;height:50px;border:4px solid rgba(33,150,243,.1);border-left:4px solid #2196f3;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:1rem}
+@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@media(max-width:768px){.app-title{font-size:2rem}.controls-section{flex-direction:column;gap:1rem;align-items:stretch}.season-type-container,.season-switcher{justify-content:center}.season-btn{flex:1;justify-content:center}.search-container{max-width:100%}.stats-overview{grid-template-columns:1fr}.nhl-table{font-size:.85rem}.nhl-table th,.nhl-table td{padding:.75rem .5rem}.team-name{font-size:.8rem}}
+@media(max-width:480px){.app-title{font-size:1.5rem}.controls-section{padding:0 .5rem}.season-btn{padding:.5rem .75rem;font-size:.8rem}.nhl-table th,.nhl-table td{padding:.5rem .25rem}.progress-container{height:20px}.progress-text{font-size:.7rem}}
