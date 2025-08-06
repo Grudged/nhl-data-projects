@@ -48,7 +48,7 @@ interface FantasyTeam {
 export class AppComponent implements OnInit {
   nhlData$!: Observable<NHLDataResponse>;
   nflData$!: Observable<NFLDataResponse>;
-  private baseApiUrl = 'http://localhost:5000/api';
+  private baseApiUrl = 'https://nhl-data-projects-production.up.railway.app/api';
   
   selectedSport: string = 'nfl';
   searchTerm: string = '';
