@@ -55,13 +55,13 @@ export class AppComponent implements OnInit {
   sortDirection: 'asc' | 'desc' = 'desc';
   selectedSeasonType: string = 'preseason';
   selectedLeagueSeason: string = '2025';
-  selectedOwner: string = 'chris';
+  selectedOwner: string = 'Pretty Fly 4a Dicker Guy';
   isLoading: boolean = false;
   
   fantasyTeams: FantasyTeam = {
-    chris: [],
-    aaron: [],
-    jay: []
+    'Pretty Fly 4a Dicker Guy': [],
+    'BlevelandClowns': [],
+    'Team 610jason': []
   };
   
   sports = [
@@ -70,9 +70,9 @@ export class AppComponent implements OnInit {
   ];
   
   owners = [
-    { value: 'chris', label: 'Pretty Fly 4a Dicker Guy', icon: '👨' },
-    { value: 'aaron', label: 'BlevelandClowns', icon: '🧑' },
-    { value: 'jay', label: 'Team 610jason', icon: '🧔' }
+    { value: 'Pretty Fly 4a Dicker Guy', label: 'Pretty Fly 4a Dicker Guy', icon: '👨' },
+    { value: 'BlevelandClowns', label: 'BlevelandClowns', icon: '🧑' },
+    { value: 'Team 610jason', label: 'Team 610jason', icon: '🧔' }
   ];
   
   seasonTypes = [
@@ -116,7 +116,15 @@ export class AppComponent implements OnInit {
     this.nhlData$.subscribe({
       next: (data) => {
         console.log('Received NHL data:', data);
-        this.nhlDataSubject.next(data.nhldata);
+        const convertedData = data.nhldata.map(game => ({
+          ...game,
+          games_count: Number(game.games_count),
+          wins: Number(game.wins),
+          losses: Number(game.losses),
+          yet_to_play: Number(game.yet_to_play),
+          total_goals: Number(game.total_goals)
+        }));
+        this.nhlDataSubject.next(convertedData);
         this.isLoading = false;
       },
       error: (error) => {
@@ -134,7 +142,15 @@ export class AppComponent implements OnInit {
     this.nflData$.subscribe({
       next: (data) => {
         console.log('Received NFL data:', data);
-        this.nflDataSubject.next(data.nfldata);
+        const convertedData = data.nfldata.map(player => ({
+          ...player,
+          fantasy_points: Number(player.fantasy_points),
+          touchdowns: Number(player.touchdowns),
+          passing_yards: Number(player.passing_yards),
+          rushing_yards: Number(player.rushing_yards),
+          receiving_yards: Number(player.receiving_yards)
+        }));
+        this.nflDataSubject.next(convertedData);
         this.isLoading = false;
       },
       error: (error) => {
@@ -273,6 +289,9 @@ export class AppComponent implements OnInit {
   }
   
   addPlayerToTeam(player: NFLPlayer): void {
+    if (!this.fantasyTeams[this.selectedOwner]) {
+      this.fantasyTeams[this.selectedOwner] = [];
+    }
     if (!this.fantasyTeams[this.selectedOwner].find(p => p.name === player.name)) {
       this.fantasyTeams[this.selectedOwner].push(player);
     }

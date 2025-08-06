@@ -154,12 +154,41 @@
 }
 
 .sort-select {
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1rem;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+    border-radius: 12px;
     color: #e4e6ea;
     font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    min-width: 150px;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="%23e4e6ea" d="M6 8L2 4h8L6 8z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+}
+
+.sort-select:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(33, 150, 243, 0.3);
+    transform: translateY(-1px);
+}
+
+.sort-select:focus {
+    outline: none;
+    border-color: #2196f3;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.sort-select option {
+    background: #1a1f2e;
+    color: #e4e6ea;
+    padding: 0.5rem;
 }
 
 .sort-btn {
