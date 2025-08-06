@@ -120,36 +120,6 @@
     </div>
   </div>
 
-  <!-- NFL Fantasy Team Overview -->
-  <div class="fantasy-overview" *ngIf="selectedSport === 'nfl'">
-    <div class="fantasy-team-card">
-      <h3>{{ selectedOwner | titlecase }}'s Fantasy Team</h3>
-      <div class="team-stats">
-        <div class="stat-card">
-          <div class="stat-number">{{ getFantasyTeam().length }}</div>
-          <div class="stat-label">Players</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">{{ getTotalFantasyPoints() | number:'1.1-1' }}</div>
-          <div class="stat-label">Total Fantasy Points</div>
-        </div>
-      </div>
-      
-      <div class="fantasy-roster" *ngIf="getFantasyTeam().length > 0">
-        <h4>Current Roster:</h4>
-        <div class="roster-players">
-          <div *ngFor="let player of getFantasyTeam()" class="roster-player">
-            <span class="player-info">
-              <strong>{{ player.name }}</strong> ({{ player.team }} - {{ player.position }})
-              <small>{{ player.fantasy_points }} pts</small>
-            </span>
-            <button (click)="removePlayerFromTeam(player)" class="remove-btn">❌</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Selected Fantasy Team Overview -->
   <div class="selected-fantasy-team" *ngIf="selectedSport === 'nfl'">
     <div class="team-card">
