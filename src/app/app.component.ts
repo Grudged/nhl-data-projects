@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { NHLGame, NFLPlayer, NHLDataResponse, FantasyTeam } from './shared/interfaces';
-
-interface NFLDataResponse {
-  nfldata: NFLPlayer[];
-}
+import { NHLGame, NFLPlayer, NHLDataResponse, NFLDataResponse, FantasyTeam } from './shared/interfaces';
 
 @Component({
   selector: 'app-root',
