@@ -8,8 +8,9 @@ import requests
 import json
 from datetime import datetime
 
-# NeonDB connection string from Poke-Project
-DATABASE_URL = "postgresql://neondb_owner:npg_uVB7qbaKAOJ0@ep-plain-brook-ae30a98o-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require"
+# NeonDB connection string from environment or Poke-Project
+import os
+DATABASE_URL = os.getenv('DATABASE_URL', "postgresql://neondb_owner:NEW_PASSWORD@ep-plain-brook-ae30a98o-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require")
 
 def fetch_nfl_schedule(api_key, season=2025):
     """Fetch NFL schedule from SportsDataIO API"""

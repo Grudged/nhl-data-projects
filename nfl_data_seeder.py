@@ -23,7 +23,8 @@ class NFLDataSeeder:
     
     def __init__(self, database_url: str = None):
         """Initialize seeder with database connection"""
-        self.database_url = database_url or "postgresql://neondb_owner:npg_uVB7qbaKAOJ0@ep-plain-brook-ae30a98o-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require"
+        import os
+        self.database_url = database_url or os.getenv('DATABASE_URL', "postgresql://neondb_owner:NEW_PASSWORD@ep-plain-brook-ae30a98o-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require")
         self.api_key = "3e9687eaec604f83af8b14709ea95172"
         
     def test_connection(self) -> bool:
