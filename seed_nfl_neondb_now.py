@@ -7,10 +7,18 @@ import psycopg2
 import requests
 import json
 from datetime import datetime
-
-# NeonDB connection string from environment or Poke-Project
+from dotenv import load_dotenv
 import os
-DATABASE_URL = os.getenv('DATABASE_URL', "postgresql://neondb_owner:NEW_PASSWORD@ep-plain-brook-ae30a98o-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require")
+
+# Load .env file from Poke-Project
+load_dotenv('/home/grudged/Repos/Poke-Project/.env')
+
+# Get DATABASE_URL from environment (no hardcoded password!)
+DATABASE_URL = os.getenv('DATABASE_URL')
+if not DATABASE_URL:
+    print("❌ DATABASE_URL not found in environment!")
+    print("Please set DATABASE_URL or check Poke-Project/.env")
+    exit(1)
 
 def fetch_nfl_schedule(api_key, season=2025):
     """Fetch NFL schedule from SportsDataIO API"""

@@ -17,6 +17,8 @@ import json
 from typing import Dict, List, Any, Optional, Callable
 from datetime import datetime
 import sys
+from dotenv import load_dotenv
+import os
 
 class NFLDataSeeder:
     """Reusable seeder for any NFL data to NeonDB"""
@@ -24,7 +26,15 @@ class NFLDataSeeder:
     def __init__(self, database_url: str = None):
         """Initialize seeder with database connection"""
         import os
-        self.database_url = database_url or os.getenv('DATABASE_URL', "postgresql://neondb_owner:NEW_PASSWORD@ep-plain-brook-ae30a98o-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require")
+        from dotenv import load_dotenv
+        
+        # Try to load from Poke-Project .env
+        load_dotenv('/home/grudged/Repos/Poke-Project/.env')
+        
+        # Get from environment, no hardcoded passwords!
+        self.database_url = database_url or os.getenv('DATABASE_URL')
+        if not self.database_url:
+            raise ValueError("DATABASE_URL not set! Please set environment variable or pass database_url parameter")
         self.api_key = "3e9687eaec604f83af8b14709ea95172"
         
     def test_connection(self) -> bool:
