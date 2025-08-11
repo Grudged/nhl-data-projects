@@ -11,6 +11,7 @@ import { NhlTableComponent } from "./components/nhl-table/nhl-table.component";
 import { NflTableComponent } from "./components/nfl-table/nfl-table.component";
 import { LoadingComponent } from "./components/loading/loading.component";
 import { NoDataComponent } from "./components/no-data/no-data.component";
+import { DraftBoardComponent } from "./components/draft-board/draft-board.component";
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { NoDataComponent } from "./components/no-data/no-data.component";
         NhlTableComponent,
         NflTableComponent,
         LoadingComponent,
-        NoDataComponent
+        NoDataComponent,
+        DraftBoardComponent
     ],
     imports: [BrowserModule, FormsModule],
     providers: [provideHttpClient()],

@@ -1,0 +1,98 @@
+<div class="draft-board-wrapper">
+  <div class="draft-board-header">
+    <h2>Fantasy Draft Board</h2>
+    <p>Build your dream team by selecting players</p>
+  </div>
+  
+  <div class="draft-controls">
+    <div class="owner-selector">
+      <label>Current Team:</label>
+      <div class="owner-switcher">
+        <button 
+          *ngFor="let owner of owners" 
+          (click)="setOwner(owner.value)"
+          [class.active]="selectedOwner === owner.value"
+          class="owner-btn"
+        >
+          {{ owner.icon }} {{ owner.label }}
+        </button>
+      </div>
+    </div>
+    
+    <div class="team-stats">
+      <span class="team-stat">Players: {{ getFantasyTeam().length }}</span>
+      <span class="team-stat">Total Points: {{ getTotalFantasyPoints() | number:'1.1-1' }}</span>
+    </div>
+  </div>
+
+  <div class="draft-board">
+    <div class="available-players">
+      <h3>Available Players</h3>
+      <div class="position-filter">
+        <button 
+          *ngFor="let pos of positions" 
+          (click)="setPositionFilter(pos)"
+          [class.active]="positionFilter === pos"
+          class="position-filter-btn"
+        >
+          {{ pos || 'All' }}
+        </button>
+      </div>
+      <div class="players-list">
+        <div 
+          *ngFor="let player of getAvailablePlayers()" 
+          class="player-card"
+          (click)="onAddPlayer(player)"
+        >
+          <div class="player-info">
+            <div class="player-name">{{ player.name }}</div>
+            <div class="player-details">
+              <span class="position-badge" [class]="'position-' + player.position.toLowerCase()">{{ player.position }}</span>
+              <span class="team-badge">{{ player.team }}</span>
+            </div>
+          </div>
+          <div class="player-stats">
+            <div class="stat-item">
+              <span class="stat-value">{{ player.fantasy_points | number:'1.0-0' }}</span>
+              <span class="stat-label">PTS</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">{{ player.touchdowns }}</span>
+              <span class="stat-label">TD</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="drafted-players">
+      <h3>{{ selectedOwner }}'s Team</h3>
+      <div class="drafted-list">
+        <div 
+          *ngFor="let player of getFantasyTeam()" 
+          class="drafted-player-card"
+          (click)="onRemovePlayer(player)"
+        >
+          <div class="player-info">
+            <div class="player-name">{{ player.name }}</div>
+            <div class="player-details">
+              <span class="position-badge" [class]="'position-' + player.position.toLowerCase()">{{ player.position }}</span>
+              <span class="team-badge">{{ player.team }}</span>
+            </div>
+          </div>
+          <div class="player-stats">
+            <span class="fantasy-points">{{ player.fantasy_points | number:'1.0-0' }} pts</span>
+            <button class="remove-btn">✕</button>
+          </div>
+        </div>
+        <div class="team-total" *ngIf="getFantasyTeam().length > 0">
+          <strong>Total Points:</strong> {{ getTotalFantasyPoints() | number:'1.1-1' }}
+        </div>
+        <div class="empty-team" *ngIf="getFantasyTeam().length === 0">
+          <p>No players selected yet</p>
+          <p class="hint">Click on available players to add them to your team</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

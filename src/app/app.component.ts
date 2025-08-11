@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   private baseApiUrl = 'https://nhl-data-projects-production.up.railway.app/api';
   
   selectedSport: string = 'nfl';
+  selectedNFLTab: string = 'players';
   searchTerm: string = '';
   sortBy: string = 'fantasy_points';
   sortDirection: 'asc' | 'desc' = 'desc';
@@ -276,6 +277,10 @@ export class AppComponent implements OnInit {
   getSeasonTypeLabel(): string {
     const seasonType = this.seasonTypes.find(s => s.value === this.selectedSeasonType);
     return seasonType ? seasonType.label : '';
+  }
+  
+  setNFLTab(tab: string): void {
+    this.selectedNFLTab = tab;
   }
 
   isPlayerInTeam(player: NFLPlayer): boolean {

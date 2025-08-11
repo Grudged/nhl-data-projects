@@ -1,8 +1,33 @@
 <header class="app-header">
-  <h1 class="app-title">
+  <!-- Sports Selector -->
+  <div class="sports-selector">
+    <button 
+      *ngFor="let sport of sports" 
+      (click)="onSportChange(sport.value)"
+      [class.active]="selectedSport === sport.value"
+      class="sport-btn"
+    >
+      <span class="sport-icon">{{ sport.icon }}</span>
+      <span class="sport-label">{{ sport.label }}</span>
+    </button>
+  </div>
+  
+  <h1 class="app-title" [class.nfl-mode]="selectedSport === 'nfl'">
     <span *ngIf="selectedSport === 'nhl'">🏒 NHL Team Statistics</span>
     <span *ngIf="selectedSport === 'nfl'">🏈 NFL Fantasy Teams</span>
   </h1>
   <p class="app-subtitle" *ngIf="selectedSport === 'nhl'">Regular Season Performance Dashboard</p>
   <p class="app-subtitle" *ngIf="selectedSport === 'nfl'">Fantasy Football Dashboard</p>
+  
+  <!-- NFL Tabs -->
+  <div class="nfl-tabs" *ngIf="selectedSport === 'nfl'">
+    <button 
+      *ngFor="let tab of nflTabs" 
+      (click)="onTabChange(tab.value)"
+      [class.active]="selectedNFLTab === tab.value"
+      class="tab-btn"
+    >
+      {{ tab.icon }} {{ tab.label }}
+    </button>
+  </div>
 </header>

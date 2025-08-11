@@ -1,6 +1,10 @@
 <div class="app-container">
   <!-- Header Component -->
-  <app-header [selectedSport]="selectedSport"></app-header>
+  <app-header 
+    [selectedSport]="selectedSport"
+    (sportChange)="setSport($event)"
+    (tabChange)="setNFLTab($event)">
+  </app-header>
 
   <!-- Controls Component -->
   <app-controls
@@ -26,8 +30,8 @@
     [nhlData]="getFilteredAndSortedNHLData()">
   </app-stats-overview>
 
-  <!-- NFL Two-Column Layout -->
-  <div *ngIf="selectedSport === 'nfl'" class="nfl-layout">
+  <!-- NFL Two-Column Layout for Players Tab -->
+  <div *ngIf="selectedSport === 'nfl' && selectedNFLTab === 'players'" class="nfl-layout">
     <div class="nfl-left-column">
       <app-fantasy-team 
         [selectedOwner]="selectedOwner"
@@ -47,6 +51,18 @@
         (removePlayer)="removePlayerFromTeam($event)">
       </app-nfl-table>
     </div>
+  </div>
+  
+  <!-- NFL Draft Board -->
+  <div *ngIf="selectedSport === 'nfl' && selectedNFLTab === 'draft'" class="draft-board-container">
+    <app-draft-board
+      [nflData]="getFilteredAndSortedNFLData()"
+      [selectedOwner]="selectedOwner"
+      [owners]="owners"
+      (ownerChange)="setOwner($event)"
+      (addPlayer)="addPlayerToTeam($event)"
+      (removePlayer)="removePlayerFromTeam($event)">
+    </app-draft-board>
   </div>
 
   <!-- NHL Table -->

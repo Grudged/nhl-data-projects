@@ -1,19 +1,4 @@
 <div class="controls-section">
-  <!-- Sport Selection -->
-  <div class="sport-container">
-    <label>Sport:</label>
-    <div class="sport-switcher">
-      <button 
-        *ngFor="let sport of sports" 
-        (click)="setSport(sport.value)"
-        [class.active]="selectedSport === sport.value"
-        class="season-btn"
-      >
-        {{ sport.icon }} {{ sport.label }}
-      </button>
-    </div>
-  </div>
-
   <!-- NHL Controls -->
   <div *ngIf="selectedSport === 'nhl'">
     <div class="season-type-container">
